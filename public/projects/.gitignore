@@ -1,0 +1,9 @@
+# Ignore uploaded files but keep the directory structure
+images/*
+brochures/*
+
+# Keep .gitignore files
+!.gitignore
+!images/.gitignore
+!brochures/.gitignore
+

@@ -1,0 +1,672 @@
+@extends('layouts.app')
+
+@section('title', $project->title . ' - Luxury Villas')
+
+@section('extra_js')
+<script>
+// Gallery functionality
+let currentImageIndex = 0;
+const galleryImages = @json($project->images ?? []);
+
+function changeGalleryImage(direction) {
+    if (galleryImages.length === 0) return;
+    
+    currentImageIndex += direction;
+    if (currentImageIndex >= galleryImages.length) currentImageIndex = 0;
+    if (currentImageIndex < 0) currentImageIndex = galleryImages.length - 1;
+    
+    selectGalleryImage(currentImageIndex);
+}
+
+function selectGalleryImage(index) {
+    currentImageIndex = index;
+    const mainImage = document.getElementById('main-gallery-image');
+    if (mainImage && galleryImages[index]) {
+        mainImage.src = '{{ asset("") }}' + galleryImages[index];
+    }
+    
+    // Update thumbnails
+    document.querySelectorAll('.thumbnail').forEach((thumb, i) => {
+        thumb.classList.toggle('active', i === index);
+    });
+}
+</script>
+@endsection
+
+@section('content')
+<!-- Property Header -->
+<section class="property-header">
+    <div class="container">
+        <div class="property-header-content">
+            <div class="property-title-section">
+                <h1>{{ $project->title }}</h1>
+                @if($project->location)
+                    <p class="property-location">
+                        <i class="fas fa-map-marker-alt"></i> {{ $project->location }}
+                    </p>
+                @endif
+            </div>
+            <div class="property-price-section">
+                <div class="property-badges">
+                    @if($project->is_featured)
+                        <span class="badge badge-featured">Featured</span>
+                    @endif
+                    @if($project->is_completed)
+                        <span class="badge badge-completed">Completed</span>
+                    @endif
+                    @if($project->is_ongoing)
+                        <span class="badge badge-ongoing">Ongoing</span>
+                    @endif
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Property Gallery -->
+<section class="property-gallery">
+    <div class="container">
+        <div class="gallery-grid">
+            <div class="gallery-main">
+                @if($project->images && count($project->images) > 0)
+                    <img src="{{ asset($project->images[0]) }}" alt="{{ $project->title }}" id="main-gallery-image">
+                    @if(count($project->images) > 1)
+                        <button class="gallery-nav-btn prev-gallery" onclick="changeGalleryImage(-1)">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button class="gallery-nav-btn next-gallery" onclick="changeGalleryImage(1)">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    @endif
+                @else
+                    <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200&q=80" alt="{{ $project->title }}" id="main-gallery-image">
+                @endif
+            </div>
+            
+            @if($project->images && count($project->images) > 1)
+                <div class="gallery-thumbnails">
+                    @foreach($project->images as $index => $image)
+                        <div class="thumbnail {{ $index === 0 ? 'active' : '' }}" onclick="selectGalleryImage({{ $index }})">
+                            <img src="{{ asset($image) }}" alt="Thumbnail {{ $index + 1 }}">
+                        </div>
+                    @endforeach
+                </div>
+            @endif
+        </div>
+    </div>
+</section>
+
+<!-- Property Details -->
+<section class="property-details-section">
+    <div class="container">
+        <div class="property-layout">
+            <div class="property-main-content">
+                <!-- Overview -->
+                <div class="detail-card">
+                    <h2>Property Overview</h2>
+                    <div class="property-stats">
+                        <div class="stat-item">
+                            <i class="fas fa-bed"></i>
+                            <div class="stat-info">
+                                <span class="stat-value">{{ $project->bedrooms ?? '4' }}</span>
+                                <span class="stat-label">Bedrooms</span>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-item">
+                            <i class="fas fa-bath"></i>
+                            <div class="stat-info">
+                                <span class="stat-value">{{ $project->bathrooms ?? '6' }}</span>
+                                <span class="stat-label">Bathrooms</span>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-item">
+                            <i class="fas fa-ruler-combined"></i>
+                            <div class="stat-info">
+                                <span class="stat-value">{{ $project->sqft ? number_format($project->sqft) : '700' }}</span>
+                                <span class="stat-label">Sq Ft</span>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-item">
+                            <i class="fas fa-calendar-alt"></i>
+                            <div class="stat-info">
+                                <span class="stat-value">{{ $project->year_built ?? '2025' }}</span>
+                                <span class="stat-label">Year Built</span>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-item">
+                            <i class="fas fa-home"></i>
+                            <div class="stat-info">
+                                <span class="stat-value">{{ $project->property_type ?? 'Villa' }}</span>
+                                <span class="stat-label">Type</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Description -->
+                <div class="detail-card">
+                    <h2>Description</h2>
+                    <div class="description-content">
+                        {!! nl2br(e($project->description)) !!}
+                    </div>
+                </div>
+
+                <!-- Features & Amenities -->
+                <div class="detail-card">
+                    <h2>Features & Amenities</h2>
+                    <div class="features-grid">
+                        <ul class="features-list">
+                            @if($project->features_amenities && count($project->features_amenities) > 0)
+                                @foreach($project->features_amenities as $feature)
+                                    <li><i class="fas fa-check"></i> {{ $feature }}</li>
+                                @endforeach
+                            @else
+                                <li><i class="fas fa-check"></i> Swimming Pool</li>
+                                <li><i class="fas fa-check"></i> Private Garden</li>
+                                <li><i class="fas fa-check"></i> Modern Kitchen</li>
+                                <li><i class="fas fa-check"></i> Air Conditioning</li>
+                                <li><i class="fas fa-check"></i> Security System</li>
+                                <li><i class="fas fa-check"></i> Parking Space</li>
+                                <li><i class="fas fa-check"></i> Balcony/Terrace</li>
+                                <li><i class="fas fa-check"></i> Gym/Fitness Center</li>
+                            @endif
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Brochure -->
+                @if($project->brochure)
+                    <div class="detail-card">
+                        <h2>Download Brochure</h2>
+                        <a href="{{ asset($project->brochure) }}" target="_blank" class="brochure-download-btn">
+                            <i class="fas fa-file-pdf"></i>
+                            <span>Download Project Brochure (PDF)</span>
+                        </a>
+                    </div>
+                @endif
+
+                <!-- Location Map -->
+                @if($project->location_iframe)
+                    <div class="detail-card">
+                        <h2><i class="fas fa-map-marker-alt"></i> Location Map</h2>
+                        <div class="map-container">
+                            {!! $project->location_iframe !!}
+                        </div>
+                    </div>
+                @endif
+
+                <!-- Video -->
+                @if($project->video)
+                    <div class="detail-card">
+                        <h2><i class="fas fa-video"></i> Project Video</h2>
+                        <div class="video-container">
+                            <video controls class="project-video">
+                                <source src="{{ asset($project->video) }}" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                        </div>
+                    </div>
+                @endif
+            </div>
+
+            <!-- Sidebar -->
+            <div class="property-sidebar">
+                <!-- Contact Form -->
+                <div class="sidebar-card contact-card">
+                    <h3>Interested in this property?</h3>
+                    <p>Contact us for more information</p>
+                    <form class="contact-form">
+                        <input type="text" placeholder="Your Name" required>
+                        <input type="email" placeholder="Your Email" required>
+                        <input type="tel" placeholder="Your Phone">
+                        <textarea placeholder="Your Message" rows="4" required></textarea>
+                        <button type="submit" class="btn btn-primary">Send Message</button>
+                    </form>
+                </div>
+
+                <!-- Agent Details -->
+                <div class="sidebar-card agent-card">
+                    <h3>Property Agent</h3>
+                    <div class="agent-info">
+                        <div class="agent-avatar">
+                            <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200&q=80" alt="Agent">
+                        </div>
+                        <div class="agent-details">
+                            <h4>John Anderson</h4>
+                            <p class="agent-title">Senior Property Consultant</p>
+                            <div class="agent-contact">
+                                <p><i class="fas fa-phone"></i> +1 (310) 555-0198</p>
+                                <p><i class="fas fa-envelope"></i> john@luxuryvillas.com</p>
+                            </div>
+                            <div class="agent-buttons">
+                                <a href="{{ route('contact') }}" class="btn btn-outline">Contact Agent</a>
+                                <a href="https://wa.me/13105550198?text=Hi, I'm interested in {{ $project->title }}" target="_blank" class="btn btn-whatsapp">
+                                    <i class="fab fa-whatsapp"></i> WhatsApp
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Property Info -->
+                <div class="sidebar-card info-card">
+                    <h3>Property Information</h3>
+                    <ul class="info-list">
+                        @if($project->location)
+                            <li>
+                                <span class="info-label">Location</span>
+                                <span class="info-value">{{ $project->location }}</span>
+                            </li>
+                        @endif
+                        @if($project->property_type)
+                            <li>
+                                <span class="info-label">Property Type</span>
+                                <span class="info-value">{{ $project->property_type }}</span>
+                            </li>
+                        @endif
+                        <li>
+                            <span class="info-label">Status</span>
+                            <span class="info-value">
+                                @if($project->is_featured) Featured @endif
+                                @if($project->is_completed) Completed @endif
+                                @if($project->is_ongoing) Ongoing @endif
+                            </span>
+                        </li>
+                        <li>
+                            <span class="info-label">Listed</span>
+                            <span class="info-value">{{ $project->created_at->format('M d, Y') }}</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Related Properties -->
+@if($relatedProjects && $relatedProjects->count() > 0)
+    <section class="related-properties">
+        <div class="container">
+            <h2>Similar Properties</h2>
+            <div class="villas-grid">
+                @foreach($relatedProjects as $related)
+                    <div class="villa-card">
+                        <div class="villa-image">
+                            @if($related->images && count($related->images) > 0)
+                                <img src="{{ asset($related->images[0]) }}" alt="{{ $related->title }}">
+                            @else
+                                <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80" alt="{{ $related->title }}">
+                            @endif
+                        </div>
+                        <div class="villa-info">
+                            <h3>{{ $related->title }}</h3>
+                            @if($related->location)
+                                <p class="villa-location">
+                                    <i class="fas fa-map-marker-alt"></i> {{ $related->location }}
+                                </p>
+                            @endif
+                            <div class="villa-features">
+                                @if($related->bedrooms)
+                                    <span><i class="fas fa-bed"></i> {{ $related->bedrooms }} Beds</span>
+                                @endif
+                                @if($related->bathrooms)
+                                    <span><i class="fas fa-bath"></i> {{ $related->bathrooms }} Baths</span>
+                                @endif
+                                @if($related->sqft)
+                                    <span><i class="fas fa-ruler-combined"></i> {{ number_format($related->sqft) }} sqft</span>
+                                @endif
+                            </div>
+                            <div class="villa-footer">
+                                <a href="{{ route('project.detail', $related->id) }}" class="btn btn-secondary">View Details</a>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    </section>
+@endif
+
+<style>
+/* Sidebar Card Styling */
+.sidebar-card {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+    margin-bottom: 30px;
+}
+
+.sidebar-card h3 {
+    font-size: 20px;
+    margin-bottom: 15px;
+    color: #2c3e50;
+}
+
+.badge {
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+    display: inline-block;
+    margin-right: 8px;
+}
+
+.badge-featured {
+    background: #ffc107;
+    color: #333;
+}
+
+.badge-completed {
+    background: #28a745;
+    color: white;
+}
+
+.badge-ongoing {
+    background: #17a2b8;
+    color: white;
+}
+
+.brochure-download-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 15px 25px;
+    background: #dc3545;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.brochure-download-btn:hover {
+    background: #c82333;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(220, 53, 69, 0.3);
+}
+
+.brochure-download-btn i {
+    font-size: 24px;
+}
+
+.related-properties {
+    padding: 80px 0;
+    background: #f8f9fa;
+}
+
+.related-properties h2 {
+    text-align: center;
+    font-size: 36px;
+    margin-bottom: 50px;
+    color: #2c3e50;
+}
+
+.description-content {
+    line-height: 1.8;
+    color: #555;
+}
+
+.description-content p {
+    margin-bottom: 15px;
+}
+
+/* Contact Form Styling */
+.contact-card h3 {
+    font-size: 22px;
+    margin-bottom: 10px;
+    color: #2c3e50;
+}
+
+.contact-card p {
+    color: #666;
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+    font-family: 'Poppins', sans-serif;
+    transition: all 0.3s ease;
+    background: #fff;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+    outline: none;
+    border-color: #c9a05c;
+    box-shadow: 0 0 0 3px rgba(201, 160, 92, 0.1);
+}
+
+.contact-form textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.contact-form button {
+    width: 100%;
+    padding: 14px 30px;
+    background: #c9a05c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Poppins', sans-serif;
+}
+
+.contact-form button:hover {
+    background: #b08d4a;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(201, 160, 92, 0.3);
+}
+
+/* Agent Card Styling */
+.agent-card {
+    text-align: center;
+}
+
+.agent-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.agent-avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-bottom: 20px;
+    border: 4px solid #c9a05c;
+}
+
+.agent-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.agent-details {
+    width: 100%;
+}
+
+.agent-details h4 {
+    font-size: 20px;
+    margin-bottom: 5px;
+    color: #2c3e50;
+}
+
+.agent-title {
+    color: #c9a05c;
+    font-size: 14px;
+    margin-bottom: 15px;
+}
+
+.agent-contact {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.agent-contact p {
+    margin: 8px 0;
+    color: #555;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.agent-contact i {
+    color: #c9a05c;
+    width: 16px;
+}
+
+.agent-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+}
+
+.btn-outline {
+    display: inline-block;
+    padding: 12px 30px;
+    border: 2px solid #c9a05c;
+    color: #c9a05c;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.btn-outline:hover {
+    background: #c9a05c;
+    color: white;
+}
+
+.btn-whatsapp {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 30px;
+    background: #25D366;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border: 2px solid #25D366;
+}
+
+.btn-whatsapp:hover {
+    background: #128C7E;
+    border-color: #128C7E;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+}
+
+.btn-whatsapp i {
+    font-size: 18px;
+}
+
+/* Property Info Card Styling */
+.info-card .info-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.info-card .info-list li {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.info-card .info-list li:last-child {
+    border-bottom: none;
+}
+
+.info-label {
+    font-weight: 500;
+    color: #666;
+    font-size: 14px;
+}
+
+.info-value {
+    font-weight: 600;
+    color: #2c3e50;
+    font-size: 14px;
+    text-align: right;
+}
+
+/* Video Section Styling */
+.video-container {
+    position: relative;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.project-video {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    background: #000;
+}
+
+/* Map Section Styling */
+.map-container {
+    position: relative;
+    width: 100%;
+    height: 450px;
+    margin-top: 20px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.map-container iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    border-radius: 8px;
+}
+
+.detail-card h2 i {
+    color: #c9a05c;
+    margin-right: 10px;
+    font-size: 24px;
+}
+
+@media (max-width: 768px) {
+    .map-container {
+        height: 350px;
+    }
+}
+</style>
+@endsection
