@@ -44,15 +44,12 @@ Route::prefix('admin')->name('admin.')->group(function () {
         // Banners CRUD
         Route::resource('banners', \App\Http\Controllers\Admin\BannerController::class);
         
-<<<<<<< HEAD
         // Teams CRUD
         Route::resource('teams', \App\Http\Controllers\Admin\TeamController::class);
-=======
         // Contacts Management
         Route::get('/contacts', [\App\Http\Controllers\Admin\ContactController::class, 'index'])->name('contacts.index');
         Route::get('/contacts/{id}', [\App\Http\Controllers\Admin\ContactController::class, 'show'])->name('contacts.show');
         Route::post('/contacts/{id}/toggle-read', [\App\Http\Controllers\Admin\ContactController::class, 'toggleRead'])->name('contacts.toggle-read');
         Route::delete('/contacts/{id}', [\App\Http\Controllers\Admin\ContactController::class, 'destroy'])->name('contacts.destroy');
->>>>>>> 856943bbd177aa259bce4880a19bdb65e402f8e5
     });
 });
