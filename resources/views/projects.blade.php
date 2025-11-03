@@ -27,14 +27,6 @@
                             @else
                                 <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80" alt="{{ $project->title }}">
                             @endif
-                            
-                            @if($project->is_featured)
-                                <div class="villa-badge">Featured</div>
-                            @elseif($project->is_ongoing)
-                                <div class="villa-badge">Ongoing</div>
-                            @elseif($project->is_completed)
-                                <div class="villa-badge">Completed</div>
-                            @endif
                         </div>
                         <div class="villa-info">
                             <h3>{{ $project->title }}</h3>

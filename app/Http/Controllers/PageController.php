@@ -89,5 +89,36 @@ class PageController extends Controller
     {
         return view('contact');
     }
+
+    public function brochureDownload(Request $request)
+    {
+        // Validate the request
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'phone' => 'required|string|min:10|max:10',
+            'email' => 'nullable|email|max:255',
+            'message' => 'nullable|string|max:1000',
+            'project_id' => 'required|exists:projects,id',
+        ]);
+
+        // Get the project
+        $project = Project::findOrFail($validated['project_id']);
+
+        // Store contact information
+        \App\Models\Contact::create([
+            'name' => $validated['name'],
+            'email' => $validated['email'] ?? null,
+            'phone' => $validated['phone'],
+            'message' => $validated['message'] ?? 'Brochure download request for: ' . $project->title,
+            'is_read' => false,
+        ]);
+
+        // Return success response with brochure URL
+        return response()->json([
+            'success' => true,
+            'brochure_url' => asset($project->brochure),
+            'message' => 'Thank you for your interest!',
+        ]);
+    }
 }
 

@@ -21,6 +21,7 @@ Route::get('/blog', [PageController::class, 'blog'])->name('blog');
 Route::get('/blog/{id}', [PageController::class, 'blogDetail'])->name('blog.detail');
 Route::get('/contact', [PageController::class, 'contact'])->name('contact');
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
+Route::post('/brochure-download', [PageController::class, 'brochureDownload'])->name('brochure.download');
 
 /*
 |--------------------------------------------------------------------------

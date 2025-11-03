@@ -30,6 +30,101 @@ function selectGalleryImage(index) {
         thumb.classList.toggle('active', i === index);
     });
 }
+
+// Modal Functions
+function openBrochureModal() {
+    document.getElementById('brochureModal').style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+}
+
+function closeBrochureModal() {
+    document.getElementById('brochureModal').style.display = 'none';
+    document.body.style.overflow = 'auto';
+    document.getElementById('brochureDownloadForm').reset();
+    clearErrors();
+}
+
+// Close modal on outside click
+document.addEventListener('click', function(event) {
+    const modal = document.getElementById('brochureModal');
+    if (event.target === modal) {
+        closeBrochureModal();
+    }
+});
+
+// Form submission
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('brochureDownloadForm');
+    
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        clearErrors();
+        
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+        
+        const formData = new FormData(form);
+        
+        fetch('{{ route("brochure.download") }}', {
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value
+            },
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Close modal
+                closeBrochureModal();
+                
+                // Open brochure in new tab
+                window.open(data.brochure_url, '_blank');
+                
+                // Show success message
+                alert('Thank you! Your brochure download will begin shortly.');
+            } else {
+                // Display validation errors
+                if (data.errors) {
+                    displayErrors(data.errors);
+                }
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred. Please try again.');
+        })
+        .finally(() => {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = '<i class="fas fa-download"></i> Download Brochure';
+        });
+    });
+});
+
+function clearErrors() {
+    document.querySelectorAll('.error-message').forEach(el => {
+        el.style.display = 'none';
+        el.textContent = '';
+    });
+    document.querySelectorAll('.form-control').forEach(el => {
+        el.classList.remove('is-invalid');
+    });
+}
+
+function displayErrors(errors) {
+    for (const [field, messages] of Object.entries(errors)) {
+        const errorElement = document.getElementById(field + '-error');
+        const inputElement = document.getElementById(field);
+        
+        if (errorElement && inputElement) {
+            errorElement.textContent = messages[0];
+            errorElement.style.display = 'block';
+            inputElement.classList.add('is-invalid');
+        }
+    }
+}
 </script>
 @endsection
 
@@ -182,10 +277,10 @@ function selectGalleryImage(index) {
                 @if($project->brochure)
                     <div class="detail-card">
                         <h2>Download Brochure</h2>
-                        <a href="{{ asset($project->brochure) }}" target="_blank" class="brochure-download-btn">
+                        <button type="button" onclick="openBrochureModal()" class="brochure-download-btn">
                             <i class="fas fa-file-pdf"></i>
                             <span>Download Project Brochure (PDF)</span>
-                        </a>
+                        </button>
                     </div>
                 @endif
 
@@ -331,6 +426,54 @@ function selectGalleryImage(index) {
     </section>
 @endif
 
+<!-- Brochure Download Modal -->
+<div id="brochureModal" class="modal-overlay" style="display: none;">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2><i class="fas fa-file-pdf"></i> Download Brochure</h2>
+            <button type="button" class="modal-close" onclick="closeBrochureModal()">&times;</button>
+        </div>
+        <div class="modal-body">
+            <p class="modal-description">Please provide your contact information to download the project brochure.</p>
+            <form id="brochureDownloadForm">
+                @csrf
+                <input type="hidden" name="project_id" value="{{ $project->id }}">
+                
+                <div class="form-group">
+                    <label for="name">Name <span class="required">*</span></label>
+                    <input type="text" id="name" name="name" class="form-control" required>
+                    <span class="error-message" id="name-error"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Phone Number <span class="required">*</span></label>
+                    <input type="tel" id="phone" name="phone" class="form-control" required maxlength="10" minlength="10">
+                    <span class="error-message" id="phone-error"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email <span class="optional">(Optional)</span></label>
+                    <input type="email" id="email" name="email" class="form-control">
+                    <span class="error-message" id="email-error"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="message">Message <span class="optional">(Optional)</span></label>
+                    <textarea id="message" name="message" class="form-control" rows="3"></textarea>
+                    <span class="error-message" id="message-error"></span>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" onclick="closeBrochureModal()">Cancel</button>
+                    <button type="submit" class="btn btn-primary" id="submitBtn">
+                        <i class="fas fa-download"></i> Download Brochure
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 <style>
 /* Sidebar Card Styling */
 .sidebar-card {
@@ -382,6 +525,11 @@ function selectGalleryImage(index) {
     border-radius: 8px;
     font-weight: 500;
     transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    justify-content: center;
+    font-size: 16px;
 }
 
 .brochure-download-btn:hover {
@@ -666,6 +814,192 @@ function selectGalleryImage(index) {
 @media (max-width: 768px) {
     .map-container {
         height: 350px;
+    }
+}
+
+/* Modal Styles */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.modal-content {
+    background: white;
+    border-radius: 12px;
+    max-width: 500px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    animation: modalSlideIn 0.3s ease;
+}
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.modal-header {
+    padding: 25px 30px;
+    border-bottom: 1px solid #e5e5e5;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header h2 {
+    margin: 0;
+    font-size: 24px;
+    color: #333;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.modal-header i {
+    color: #dc3545;
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    font-size: 32px;
+    color: #999;
+    cursor: pointer;
+    line-height: 1;
+    transition: color 0.3s;
+}
+
+.modal-close:hover {
+    color: #333;
+}
+
+.modal-body {
+    padding: 30px;
+}
+
+.modal-description {
+    color: #666;
+    margin-bottom: 25px;
+    line-height: 1.6;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #333;
+}
+
+.required {
+    color: #dc3545;
+}
+
+.optional {
+    color: #999;
+    font-weight: normal;
+    font-size: 13px;
+}
+
+.form-control {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 14px;
+    transition: border-color 0.3s;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: #2c3e50;
+}
+
+.form-control.is-invalid {
+    border-color: #dc3545;
+}
+
+.error-message {
+    display: none;
+    color: #dc3545;
+    font-size: 13px;
+    margin-top: 5px;
+}
+
+.form-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: flex-end;
+    margin-top: 30px;
+}
+
+.btn {
+    padding: 12px 30px;
+    border-radius: 6px;
+    border: none;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-primary {
+    background: #2c3e50;
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #1a252f;
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    background: #6c757d;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background: #5a6268;
+}
+
+@media (max-width: 576px) {
+    .modal-content {
+        margin: 10px;
+    }
+    
+    .modal-header, .modal-body {
+        padding: 20px;
+    }
+    
+    .form-actions {
+        flex-direction: column;
+    }
+    
+    .btn {
+        width: 100%;
+        justify-content: center;
     }
 }
 </style>
