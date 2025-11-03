@@ -295,6 +295,52 @@
         @endif
     </div>
 </section>
+
+<!-- Our Team Section -->
+<section class="team-section">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-subtitle">Our Team</span>
+            <h2 class="section-title">Meet Our Experts</h2>
+            <div class="title-divider"></div>
+        </div>
+        @if($teams && $teams->count() > 0)
+            <div class="team-grid">
+                @foreach($teams as $team)
+                    <div class="team-member">
+                        <div class="team-image">
+                            @if($team->image)
+                                <img src="{{ asset($team->image) }}" alt="{{ $team->name }}">
+                            @else
+                                <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=600&q=80" alt="{{ $team->name }}">
+                            @endif
+                            <div class="team-overlay">
+                                <div class="team-social">
+                                    <a href="tel:{{ $team->phone_number }}" title="Call {{ $team->name }}">
+                                        <i class="fas fa-phone-alt"></i>
+                                    </a>
+                                    <a href="https://wa.me/91{{ $team->phone_number }}" target="_blank" title="WhatsApp {{ $team->name }}">
+                                        <i class="fab fa-whatsapp"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="team-info">
+                            <h4>{{ $team->name }}</h4>
+                            <p>{{ $team->position }}</p>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        @else
+            <div class="empty-state">
+                <i class="fas fa-users"></i>
+                <h3>Meet Our Team Soon</h3>
+                <p>We're building an exceptional team to serve you better.</p>
+            </div>
+        @endif
+    </div>
+</section>
 @endsection
 
 @section('extra_css')
@@ -337,6 +383,153 @@
     .featured-section .villa-footer .btn {
         width: 100%;
         justify-content: center;
+    }
+}
+
+/* Team Section Styles */
+.team-section {
+    padding: 80px 0;
+    background: #ffffff;
+}
+
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    margin-top: 50px;
+}
+
+.team-member {
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    transition: all 0.3s ease;
+}
+
+.team-member:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
+
+.team-image {
+    position: relative;
+    height: 320px;
+    overflow: hidden;
+}
+
+.team-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.team-member:hover .team-image img {
+    transform: scale(1.1);
+}
+
+.team-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(26, 35, 53, 0.85);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.team-member:hover .team-overlay {
+    opacity: 1;
+}
+
+.team-social {
+    display: flex;
+    gap: 15px;
+}
+
+.team-social a {
+    width: 45px;
+    height: 45px;
+    background: rgba(255, 255, 255, 0.15);
+    border: 2px solid #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 18px;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+}
+
+.team-social a:hover {
+    background: #c49b63;
+    border-color: #c49b63;
+    transform: scale(1.1);
+}
+
+.team-info {
+    padding: 25px 20px;
+    text-align: center;
+}
+
+.team-info h4 {
+    margin: 0 0 8px 0;
+    font-size: 20px;
+    color: #1a2335;
+    font-weight: 600;
+}
+
+.team-info p {
+    margin: 0;
+    color: #c49b63;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+}
+
+.empty-state i {
+    font-size: 64px;
+    color: #e0e0e0;
+    margin-bottom: 20px;
+}
+
+.empty-state h3 {
+    font-size: 24px;
+    color: #1a2335;
+    margin-bottom: 10px;
+}
+
+.empty-state p {
+    color: #666;
+    font-size: 16px;
+}
+
+@media (max-width: 768px) {
+    .team-section {
+        padding: 60px 0;
+    }
+    
+    .team-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+    }
+    
+    .team-image {
+        height: 280px;
+    }
+    
+    .team-info h4 {
+        font-size: 18px;
     }
 }
 </style>

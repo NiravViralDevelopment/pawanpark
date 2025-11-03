@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@yield('title', 'Luxury Villas - Premium Real Estate')</title>
+    <title>@yield('title', 'Gurukrupa Marketing - Premium Real Estate')</title>
     
     <!-- SEO Meta Tags -->
     @yield('meta_tags')
@@ -58,8 +58,8 @@
                     <div class="social-links">
                         <a href="#"><i class="fab fa-facebook-f"></i></a>
                         <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                        <!-- <a href="#"><i class="fab fa-linkedin-in"></i></a> -->
                     </div>
                 </div>
 
@@ -75,7 +75,7 @@
                     </ul>
                 </div>
 
-                <div class="footer-column">
+                <!-- <div class="footer-column">
                     <h3>Services</h3>
                     <ul>
                         <li><a href="{{ route('services') }}">Property Sales</a></li>
@@ -83,7 +83,7 @@
                         <li><a href="{{ route('services') }}">Investment Advisory</a></li>
                         <li><a href="{{ route('services') }}">Property Management</a></li>
                     </ul>
-                </div>
+                </div> -->
 
                 <div class="footer-column">
                     <h3>Contact Info</h3>
@@ -91,7 +91,7 @@
                         <li><i class="fas fa-map-marker-alt"></i> 123 Luxury Avenue, Beverly Hills, CA 90210</li>
                         <li><i class="fas fa-phone"></i> +91 9510312047</li>
                         <li><i class="fas fa-envelope"></i> info@luxuryvillas.com</li>
-                        <li><i class="fas fa-clock"></i> Mon - Sat: 9:00 AM - 6:00 PM</li>
+                        <li><i class="fas fa-clock"></i> Mon - Sun: 9:00 AM - 6:00 PM</li>
                     </ul>
                 </div>
             </div>

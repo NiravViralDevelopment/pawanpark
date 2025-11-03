@@ -23,7 +23,11 @@ class PageController extends Controller
             ->take(6)
             ->get();
         
-        return view('home', compact('banners', 'featuredProjects', 'testimonials'));
+        // Get all team members for home page
+        $teams = \App\Models\Team::latest()
+            ->get();
+        
+        return view('home', compact('banners', 'featuredProjects', 'testimonials', 'teams'));
     }
 
     public function about()
