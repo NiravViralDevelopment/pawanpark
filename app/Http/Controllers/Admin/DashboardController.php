@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Contact;
 
 class DashboardController extends Controller
 {
@@ -16,7 +17,7 @@ class DashboardController extends Controller
         $stats = [
             'projects' => \App\Models\Project::count(),
             'blogs' => 24, // Will be updated when Blog CRUD is created
-            'messages' => 8, // Will be updated when Messages CRUD is created
+            'messages' => Contact::count(),
             'users' => User::count(),
         ];
 

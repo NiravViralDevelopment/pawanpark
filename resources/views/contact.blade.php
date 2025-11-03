@@ -78,31 +78,19 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="email">Email Address *</label>
+                        <label for="email">Email Address</label>
                         <input type="email" id="email" name="email" placeholder="Enter your email address">
                         <span class="error-message" id="email-error"></span>
                     </div>
 
                     <div class="form-group">
                         <label for="phone">Phone Number *</label>
-                        <input type="tel" id="phone" name="phone" placeholder="Enter your phone number">
+                        <input type="tel" id="phone" name="phone" placeholder="Enter your phone number (e.g., +91 9876543210)" maxlength="15">
                         <span class="error-message" id="phone-error"></span>
                     </div>
 
                     <div class="form-group">
-                        <label for="subject">Subject</label>
-                        <select id="subject" name="subject">
-                            <option value="">Select a subject</option>
-                            <option value="buying">I'm interested in buying</option>
-                            <option value="selling">I want to sell my property</option>
-                            <option value="investment">Investment opportunities</option>
-                            <option value="rental">Luxury rentals</option>
-                            <option value="other">Other inquiry</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="message">Message *</label>
+                        <label for="message">Message</label>
                         <textarea id="message" name="message" rows="5" placeholder="Tell us about your requirements..."></textarea>
                         <span class="error-message" id="message-error"></span>
                     </div>
