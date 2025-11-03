@@ -63,6 +63,9 @@ class ProjectController extends Controller
             'sqft' => 'nullable|numeric|min:0',
             'year_built' => 'nullable|integer|min:1800|max:' . (date('Y') + 1),
             'property_type' => 'nullable|string|max:100',
+            'meta_title' => 'nullable|string|max:60',
+            'meta_description' => 'nullable|string|max:160',
+            'meta_keywords' => 'nullable|string|max:255',
         ]);
 
         // Handle multiple image uploads
@@ -109,6 +112,9 @@ class ProjectController extends Controller
             'sqft' => $validated['sqft'] ?? null,
             'year_built' => $validated['year_built'] ?? null,
             'property_type' => $validated['property_type'] ?? null,
+            'meta_title' => $validated['meta_title'] ?? null,
+            'meta_description' => $validated['meta_description'] ?? null,
+            'meta_keywords' => $validated['meta_keywords'] ?? null,
         ]);
 
         return redirect()->route('admin.projects.index')
@@ -151,6 +157,9 @@ class ProjectController extends Controller
             'sqft' => 'nullable|numeric|min:0',
             'year_built' => 'nullable|integer|min:1800|max:' . (date('Y') + 1),
             'property_type' => 'nullable|string|max:100',
+            'meta_title' => 'nullable|string|max:60',
+            'meta_description' => 'nullable|string|max:160',
+            'meta_keywords' => 'nullable|string|max:255',
         ]);
         
         \Log::info('Validation passed');
@@ -206,6 +215,9 @@ class ProjectController extends Controller
         $project->sqft = $validated['sqft'] ?? null;
         $project->year_built = $validated['year_built'] ?? null;
         $project->property_type = $validated['property_type'] ?? null;
+        $project->meta_title = $validated['meta_title'] ?? null;
+        $project->meta_description = $validated['meta_description'] ?? null;
+        $project->meta_keywords = $validated['meta_keywords'] ?? null;
         $project->save();
         
         \Log::info('Project updated successfully. ID: ' . $project->id);

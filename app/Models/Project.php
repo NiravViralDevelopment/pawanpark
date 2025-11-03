@@ -23,6 +23,9 @@ class Project extends Model
         'sqft',
         'year_built',
         'property_type',
+        'meta_title',
+        'meta_description',
+        'meta_keywords',
     ];
 
     protected $casts = [

@@ -146,6 +146,13 @@ ul {
     font-family: 'Playfair Display', serif;
     font-weight: 700;
     color: var(--secondary-color);
+    text-decoration: none;
+}
+
+.logo img {
+    height: 65px;
+    width: auto;
+    object-fit: contain;
 }
 
 .logo i {
@@ -650,6 +657,13 @@ ul {
     font-family: 'Playfair Display', serif;
     font-weight: 700;
     margin-bottom: 20px;
+}
+
+.footer-logo img {
+    height: 60px;
+    width: auto;
+    object-fit: contain;
+    filter: brightness(1.2);
 }
 
 .footer-logo i {

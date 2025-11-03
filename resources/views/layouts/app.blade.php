@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', 'Luxury Villas - Premium Real Estate')</title>
+    
+    <!-- SEO Meta Tags -->
+    @yield('meta_tags')
+    
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,10 +21,10 @@
     <nav class="navbar" id="navbar">
         <div class="container">
             <div class="nav-wrapper">
-                <div class="logo">
-                    <i class="fas fa-building"></i>
-                    <span>LuxuryVillas</span>
-                </div>
+                <a href="{{ route('home') }}" class="logo">
+                    <img src="{{ asset('assets/images/logo.jpg') }}" alt="LuxuryVillas">
+                    <span>Gurukrupa Marketing</span>
+                </a>
                 <ul class="nav-menu" id="nav-menu">
                     <li><a href="{{ route('home') }}" class="{{ request()->routeIs('home') ? 'active' : '' }}">Home</a></li>
                     <li><a href="{{ route('about') }}" class="{{ request()->routeIs('about') ? 'active' : '' }}">About</a></li>
@@ -47,8 +51,8 @@
             <div class="footer-content">
                 <div class="footer-column">
                     <div class="footer-logo">
-                        <i class="fas fa-building"></i>
-                        <span>LuxuryVillas</span>
+                        <img src="{{ asset('assets/images/logo.jpg') }}" alt="Gurukrupa Marketing">
+                        <span>Gurukrupa Marketing</span>
                     </div>
                     <p>Your premier destination for luxury real estate. Discover exceptional villas in the world's most desirable locations.</p>
                     <div class="social-links">
@@ -85,14 +89,14 @@
                     <h3>Contact Info</h3>
                     <ul class="contact-info">
                         <li><i class="fas fa-map-marker-alt"></i> 123 Luxury Avenue, Beverly Hills, CA 90210</li>
-                        <li><i class="fas fa-phone"></i> +1 (310) 555-0123</li>
+                        <li><i class="fas fa-phone"></i> +91 9510312047</li>
                         <li><i class="fas fa-envelope"></i> info@luxuryvillas.com</li>
                         <li><i class="fas fa-clock"></i> Mon - Sat: 9:00 AM - 6:00 PM</li>
                     </ul>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2025 LuxuryVillas. All rights reserved.</p>
+                <p>&copy; 2025 Gurukrupa Marketing. All rights reserved.</p>
             </div>
         </div>
     </footer>

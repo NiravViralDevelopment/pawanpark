@@ -5,7 +5,7 @@
 @section('content')
 <!-- Page Header -->
 <section class="page-header">
-    <div class="page-header-bg" style="background-image: url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1920&q=80');"></div>
+    <div class="page-header-bg" style="background-image: url('{{ asset('assets/images/Media (3).jpg') }}');"></div>
     <div class="page-header-content">
         <div class="container">
             <h1>Our Projects</h1>

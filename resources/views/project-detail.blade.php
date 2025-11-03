@@ -1,6 +1,29 @@
 @extends('layouts.app')
 
-@section('title', $project->title . ' - Luxury Villas')
+@section('title', $project->meta_title ?? $project->title . ' - Luxury Villas')
+
+@section('meta_tags')
+    <meta name="description" content="{{ $project->meta_description ?? Str::limit($project->description, 160) }}">
+    <meta name="keywords" content="{{ $project->meta_keywords ?? 'luxury villa, real estate, property' }}">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:title" content="{{ $project->meta_title ?? $project->title }}">
+    <meta property="og:description" content="{{ $project->meta_description ?? Str::limit($project->description, 160) }}">
+    @if($project->images && count($project->images) > 0)
+        <meta property="og:image" content="{{ asset($project->images[0]) }}">
+    @endif
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="{{ url()->current() }}">
+    <meta property="twitter:title" content="{{ $project->meta_title ?? $project->title }}">
+    <meta property="twitter:description" content="{{ $project->meta_description ?? Str::limit($project->description, 160) }}">
+    @if($project->images && count($project->images) > 0)
+        <meta property="twitter:image" content="{{ asset($project->images[0]) }}">
+    @endif
+@endsection
 
 @section('extra_js')
 <script>
@@ -117,6 +140,87 @@ function displayErrors(errors) {
     for (const [field, messages] of Object.entries(errors)) {
         const errorElement = document.getElementById(field + '-error');
         const inputElement = document.getElementById(field);
+        
+        if (errorElement && inputElement) {
+            errorElement.textContent = messages[0];
+            errorElement.style.display = 'block';
+            inputElement.classList.add('is-invalid');
+        }
+    }
+}
+
+// Property Contact Form Submission
+document.addEventListener('DOMContentLoaded', function() {
+    const contactForm = document.getElementById('propertyContactForm');
+    
+    if (contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Clear previous errors
+            clearContactErrors();
+            
+            const submitBtn = document.getElementById('contactSubmitBtn');
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+            
+            const formData = new FormData(contactForm);
+            
+            fetch('{{ route("property.contact") }}', {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value
+                },
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Hide form and show success message
+                    contactForm.style.display = 'none';
+                    document.getElementById('contactFormSuccess').style.display = 'block';
+                    
+                    // Reset form
+                    contactForm.reset();
+                    
+                    // Show form again after 5 seconds
+                    setTimeout(() => {
+                        contactForm.style.display = 'block';
+                        document.getElementById('contactFormSuccess').style.display = 'none';
+                    }, 5000);
+                } else {
+                    // Display validation errors
+                    if (data.errors) {
+                        displayContactErrors(data.errors);
+                    }
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred. Please try again.');
+            })
+            .finally(() => {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = 'Send Message';
+            });
+        });
+    }
+});
+
+function clearContactErrors() {
+    document.querySelectorAll('.form-error').forEach(el => {
+        el.style.display = 'none';
+        el.textContent = '';
+    });
+    document.querySelectorAll('.contact-form input, .contact-form textarea').forEach(el => {
+        el.classList.remove('is-invalid');
+    });
+}
+
+function displayContactErrors(errors) {
+    for (const [field, messages] of Object.entries(errors)) {
+        const errorElement = document.getElementById('contact_' + field + '_error');
+        const inputElement = document.getElementById('contact_' + field);
         
         if (errorElement && inputElement) {
             errorElement.textContent = messages[0];
@@ -349,13 +453,26 @@ function displayErrors(errors) {
                 <div class="sidebar-card contact-card">
                     <h3>Interested in this property?</h3>
                     <p>Contact us for more information</p>
-                    <form class="contact-form">
-                        <input type="text" placeholder="Your Name" required>
-                        <input type="email" placeholder="Your Email" required>
-                        <input type="tel" placeholder="Your Phone">
-                        <textarea placeholder="Your Message" rows="4" required></textarea>
-                        <button type="submit" class="btn btn-primary">Send Message</button>
+                    <form id="propertyContactForm" class="contact-form">
+                        @csrf
+                        <input type="hidden" name="property_name" value="{{ $project->title }}">
+                        <input type="text" name="name" id="contact_name" placeholder="Your Name" required>
+                        <span class="form-error" id="contact_name_error"></span>
+                        
+                        <input type="email" name="email" id="contact_email" placeholder="Your Email (Optional)">
+                        <span class="form-error" id="contact_email_error"></span>
+                        
+                        <input type="tel" name="phone" id="contact_phone" placeholder="Your Phone" maxlength="10" required>
+                        <span class="form-error" id="contact_phone_error"></span>
+                        
+                        <textarea name="message" id="contact_message" placeholder="Your Message" rows="4" required></textarea>
+                        <span class="form-error" id="contact_message_error"></span>
+                        
+                        <button type="submit" class="btn btn-primary" id="contactSubmitBtn">Send Message</button>
                     </form>
+                    <div id="contactFormSuccess" class="form-success" style="display: none;">
+                        <i class="fas fa-check-circle"></i> Thank you! We'll contact you soon.
+                    </div>
                 </div>
 
                 <!-- Agent Details -->
@@ -1062,6 +1179,36 @@ function displayErrors(errors) {
         width: 100%;
         justify-content: center;
     }
+}
+
+/* Contact Form Error/Success Styling */
+.contact-form .form-error {
+    display: none;
+    color: #dc3545;
+    font-size: 12px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+.contact-form input.is-invalid,
+.contact-form textarea.is-invalid {
+    border-color: #dc3545;
+}
+
+.form-success {
+    padding: 20px;
+    background: #d4edda;
+    border: 1px solid #c3e6cb;
+    border-radius: 8px;
+    color: #155724;
+    text-align: center;
+    font-weight: 500;
+}
+
+.form-success i {
+    font-size: 24px;
+    margin-bottom: 10px;
+    display: block;
 }
 </style>
 @endsection

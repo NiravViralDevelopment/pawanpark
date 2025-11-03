@@ -60,6 +60,13 @@
             gap: 10px;
         }
 
+        .sidebar-logo img {
+            height: 45px;
+            width: auto;
+            object-fit: contain;
+            filter: brightness(1.2);
+        }
+
         .sidebar-logo i {
             font-size: 28px;
             color: var(--secondary-color);
@@ -295,7 +302,7 @@
     <aside class="sidebar" id="sidebar">
         <div class="sidebar-logo">
             <h2>
-                <i class="fas fa-building"></i>
+                <img src="{{ asset('assets/images/logo.jpg') }}" alt="Admin Panel">
                 <span>Admin Panel</span>
             </h2>
         </div>

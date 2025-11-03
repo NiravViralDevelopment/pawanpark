@@ -362,6 +362,64 @@
     </div>
 </div>
 
+{{-- SEO Meta Information --}}
+<div class="form-section">
+    <h3 class="section-title">
+        <i class="fas fa-search"></i>
+        SEO Meta Information
+    </h3>
+    <p class="section-description">Optimize your project for search engines. These fields help improve visibility in search results.</p>
+    
+    <div class="form-group">
+        <label for="meta_title">Meta Title</label>
+        <input 
+            type="text" 
+            id="meta_title" 
+            name="meta_title" 
+            class="form-control @error('meta_title') is-invalid @enderror" 
+            value="{{ old('meta_title', $project->meta_title ?? '') }}" 
+            placeholder="e.g., Luxury Villa in Beverly Hills | Premium Real Estate"
+            maxlength="60"
+        >
+        <small class="form-text">Recommended: 50-60 characters. Leave blank to use project title.</small>
+        @error('meta_title')
+            <div class="error-text">{{ $message }}</div>
+        @enderror
+    </div>
+
+    <div class="form-group">
+        <label for="meta_description">Meta Description</label>
+        <textarea 
+            id="meta_description" 
+            name="meta_description" 
+            class="form-control @error('meta_description') is-invalid @enderror" 
+            rows="3"
+            placeholder="Brief description of the property for search results..."
+            maxlength="160"
+        >{{ old('meta_description', $project->meta_description ?? '') }}</textarea>
+        <small class="form-text">Recommended: 150-160 characters. This appears in search results.</small>
+        @error('meta_description')
+            <div class="error-text">{{ $message }}</div>
+        @enderror
+    </div>
+
+    <div class="form-group">
+        <label for="meta_keywords">Meta Keywords</label>
+        <input 
+            type="text" 
+            id="meta_keywords" 
+            name="meta_keywords" 
+            class="form-control @error('meta_keywords') is-invalid @enderror" 
+            value="{{ old('meta_keywords', $project->meta_keywords ?? '') }}" 
+            placeholder="luxury villa, beverly hills, real estate, property"
+        >
+        <small class="form-text">Separate keywords with commas. Example: luxury villa, beverly hills, real estate</small>
+        @error('meta_keywords')
+            <div class="error-text">{{ $message }}</div>
+        @enderror
+    </div>
+</div>
+
 <style>
     .form-section {
         margin-bottom: 35px;
@@ -377,10 +435,17 @@
         font-size: 18px;
         font-weight: 600;
         color: #333;
-        margin-bottom: 20px;
+        margin-bottom: 10px;
         display: flex;
         align-items: center;
         gap: 10px;
+    }
+
+    .section-description {
+        font-size: 14px;
+        color: #666;
+        margin-bottom: 20px;
+        line-height: 1.5;
     }
 
     .form-group {

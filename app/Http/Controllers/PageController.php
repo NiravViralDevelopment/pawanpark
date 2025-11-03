@@ -120,5 +120,38 @@ class PageController extends Controller
             'message' => 'Thank you for your interest!',
         ]);
     }
+
+    public function propertyContact(Request $request)
+    {
+        // Validate the request
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'phone' => 'required|string|min:10|max:10',
+            'email' => 'nullable|email|max:255',
+            'message' => 'required|string|max:1000',
+            'property_name' => 'nullable|string|max:255',
+        ]);
+
+        // Create message with property name if provided
+        $message = $validated['message'];
+        if (!empty($validated['property_name'])) {
+            $message = 'Property Inquiry for: ' . $validated['property_name'] . "\n\n" . $message;
+        }
+
+        // Store contact information
+        \App\Models\Contact::create([
+            'name' => $validated['name'],
+            'email' => $validated['email'] ?? null,
+            'phone' => $validated['phone'],
+            'message' => $message,
+            'is_read' => false,
+        ]);
+
+        // Return success response
+        return response()->json([
+            'success' => true,
+            'message' => 'Thank you for your inquiry! We will contact you soon.',
+        ]);
+    }
 }
 
