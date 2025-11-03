@@ -40,7 +40,24 @@ class PageController extends Controller
 
     public function services()
     {
-        return view('services');
+        // Get all services
+        $services = \App\Models\Service::latest()->get();
+        
+        return view('services', compact('services'));
+    }
+
+    public function serviceDetail($id)
+    {
+        // Get single service
+        $service = \App\Models\Service::findOrFail($id);
+        
+        // Get other services (latest 3, excluding current)
+        $otherServices = \App\Models\Service::where('id', '!=', $id)
+            ->latest()
+            ->take(3)
+            ->get();
+        
+        return view('service-detail', compact('service', 'otherServices'));
     }
 
     public function project()

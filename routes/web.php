@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\DashboardController;
 Route::get('/', [PageController::class, 'home'])->name('home');
 Route::get('/about', [PageController::class, 'about'])->name('about');
 Route::get('/services', [PageController::class, 'services'])->name('services');
+Route::get('/service/{id}', [PageController::class, 'serviceDetail'])->name('service.detail');
 Route::get('/project', [PageController::class, 'project'])->name('project');
 Route::get('/project/{id}', [PageController::class, 'projectDetail'])->name('project.detail');
 Route::get('/blog', [PageController::class, 'blog'])->name('blog');
@@ -55,6 +56,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
         
         // Blogs CRUD
         Route::resource('blogs', \App\Http\Controllers\Admin\BlogController::class);
+        
+        // Services CRUD
+        Route::resource('services', \App\Http\Controllers\Admin\ServiceController::class);
         
         // Contacts Management
         Route::get('/contacts', [\App\Http\Controllers\Admin\ContactController::class, 'index'])->name('contacts.index');

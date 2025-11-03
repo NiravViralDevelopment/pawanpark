@@ -42,7 +42,7 @@
             <div class="title-divider"></div>
         </div>
         <p class="services-intro-text">
-            At Luxury Villas, we offer a comprehensive suite of services designed to meet all your luxury real estate needs. From property sales and acquisitions to property management and investment advisory, our team of experts is dedicated to providing exceptional service at every stage of your real estate journey.
+            At Gurukrupa Marketing, we offer a comprehensive suite of services designed to meet all your real estate needs. From property sales and acquisitions to property management and investment advisory, our team of experts is dedicated to providing exceptional service at every stage of your real estate journey.
         </p>
     </div>
 </section>
@@ -50,87 +50,35 @@
 <!-- Main Services -->
 <section class="main-services-section">
     <div class="container">
-        <div class="services-grid-large">
-            <div class="service-card-large">
-                <div class="service-image">
-                    <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&q=80" alt="Property Sales">
-                    <div class="service-overlay">
-                        <i class="fas fa-home"></i>
+        @if($services && $services->count() > 0)
+            <div class="services-grid-large">
+                @foreach($services as $service)
+                    <div class="service-card-large">
+                        <div class="service-image">
+                            @if($service->image)
+                                <img src="{{ asset($service->image) }}" alt="{{ $service->title }}">
+                            @else
+                                <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&q=80" alt="{{ $service->title }}">
+                            @endif
+                            <div class="service-overlay">
+                                <i class="fas fa-concierge-bell"></i>
+                            </div>
+                        </div>
+                        <div class="service-content">
+                            <h3>{{ $service->title }}</h3>
+                            <p>{{ Str::limit($service->descriptions, 200) }}</p>
+                            <a href="{{ route('service.detail', $service->id) }}" class="btn btn-secondary">Learn More</a>
+                        </div>
                     </div>
-                </div>
-                <div class="service-content">
-                    <h3>Property Sales & Acquisitions</h3>
-                    <p>Expert guidance through the entire buying or selling process. Our team leverages extensive market knowledge and a global network to ensure you get the best value for your investment.</p>
-                    <ul class="service-features">
-                        <li><i class="fas fa-check"></i> Market Analysis & Valuation</li>
-                        <li><i class="fas fa-check"></i> Negotiation & Deal Structuring</li>
-                        <li><i class="fas fa-check"></i> Legal & Financial Coordination</li>
-                        <li><i class="fas fa-check"></i> Post-Sale Support</li>
-                    </ul>
-                    <a href="{{ route('contact') }}" class="btn btn-secondary">Learn More</a>
-                </div>
+                @endforeach
             </div>
-
-            <div class="service-card-large">
-                <div class="service-image">
-                    <img src="https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=800&q=80" alt="Luxury Rentals">
-                    <div class="service-overlay">
-                        <i class="fas fa-key"></i>
-                    </div>
-                </div>
-                <div class="service-content">
-                    <h3>Luxury Rentals</h3>
-                    <p>Access to exclusive rental properties for short-term and long-term stays. Perfect for those seeking temporary luxury accommodations or testing a location before purchasing.</p>
-                    <ul class="service-features">
-                        <li><i class="fas fa-check"></i> Curated Rental Portfolio</li>
-                        <li><i class="fas fa-check"></i> Flexible Terms & Conditions</li>
-                        <li><i class="fas fa-check"></i> Concierge Services</li>
-                        <li><i class="fas fa-check"></i> Property Maintenance Included</li>
-                    </ul>
-                    <a href="{{ route('contact') }}" class="btn btn-secondary">Learn More</a>
-                </div>
+        @else
+            <div class="empty-state">
+                <i class="fas fa-concierge-bell"></i>
+                <h3>Services Coming Soon</h3>
+                <p>We're preparing exciting services for you. Stay tuned!</p>
             </div>
-
-            <div class="service-card-large">
-                <div class="service-image">
-                    <img src="https://images.unsplash.com/photo-1554224311-beee4ece0870?w=800&q=80" alt="Investment Advisory">
-                    <div class="service-overlay">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
-                </div>
-                <div class="service-content">
-                    <h3>Investment Advisory</h3>
-                    <p>Strategic investment advice backed by comprehensive market research and analysis. We help you build and optimize your luxury real estate portfolio for maximum returns.</p>
-                    <ul class="service-features">
-                        <li><i class="fas fa-check"></i> Portfolio Diversification</li>
-                        <li><i class="fas fa-check"></i> ROI Analysis & Projections</li>
-                        <li><i class="fas fa-check"></i> Risk Assessment</li>
-                        <li><i class="fas fa-check"></i> Market Trend Reports</li>
-                    </ul>
-                    <a href="{{ route('contact') }}" class="btn btn-secondary">Learn More</a>
-                </div>
-            </div>
-
-            <div class="service-card-large">
-                <div class="service-image">
-                    <img src="https://images.unsplash.com/photo-1556912173-46c336c7fd55?w=800&q=80" alt="Property Management">
-                    <div class="service-overlay">
-                        <i class="fas fa-tools"></i>
-                    </div>
-                </div>
-                <div class="service-content">
-                    <h3>Property Management</h3>
-                    <p>Comprehensive property management services to maintain and enhance the value of your investment. We handle everything so you can enjoy peace of mind.</p>
-                    <ul class="service-features">
-                        <li><i class="fas fa-check"></i> Maintenance & Repairs</li>
-                        <li><i class="fas fa-check"></i> Tenant Screening & Management</li>
-                        <li><i class="fas fa-check"></i> Financial Reporting</li>
-                        <li><i class="fas fa-check"></i> 24/7 Emergency Support</li>
-                    </ul>
-                    <a href="{{ route('contact') }}" class="btn btn-secondary">Learn More</a>
-                </div>
-            </div>
-        </div>
+        @endif
     </div>
 </section>
 

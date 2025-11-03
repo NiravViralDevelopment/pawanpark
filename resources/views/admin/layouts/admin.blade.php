@@ -344,6 +344,12 @@
                 </a>
             </li>
             <li>
+                <a href="{{ route('admin.services.index') }}" class="{{ request()->routeIs('admin.services*') ? 'active' : '' }}">
+                    <i class="fas fa-concierge-bell"></i>
+                    <span>Services</span>
+                </a>
+            </li>
+            <li>
                 <a href="{{ route('admin.contacts.index') }}" class="{{ request()->routeIs('admin.contacts*') ? 'active' : '' }}">
                     <i class="fas fa-envelope"></i>
                     <span>Contacts</span>
