@@ -325,6 +325,12 @@
                 </a>
             </li>
             <li>
+                <a href="{{ route('admin.testimonials.index') }}" class="{{ request()->routeIs('admin.testimonials*') ? 'active' : '' }}">
+                    <i class="fas fa-comment-dots"></i>
+                    <span>Testimonials</span>
+                </a>
+            </li>
+            <li>
                 <a href="#" class="{{ request()->routeIs('admin.blogs*') ? 'active' : '' }}">
                     <i class="fas fa-blog"></i>
                     <span>Blogs</span>

@@ -226,61 +226,93 @@
             <h2 class="section-title">What Our Clients Say</h2>
             <div class="title-divider"></div>
         </div>
-        <div class="testimonials-grid">
-            <div class="testimonial-card">
-                <div class="testimonial-stars">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                </div>
-                <p class="testimonial-text">"The team at Luxury Villas helped us find our dream home in Malibu. Their attention to detail and understanding of our needs was exceptional. We couldn't be happier with our new beachfront villa."</p>
-                <div class="testimonial-author">
-                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=80" alt="Client">
-                    <div class="author-info">
-                        <h4>Michael Anderson</h4>
-                        <p>CEO, Tech Innovations</p>
+        
+        @if($testimonials && $testimonials->count() > 0)
+            <div class="testimonials-grid">
+                @foreach($testimonials as $testimonial)
+                    <div class="testimonial-card">
+                        <div class="testimonial-stars">
+                            @for($i = 1; $i <= 5; $i++)
+                                @if($i <= $testimonial->rating)
+                                    <i class="fas fa-star"></i>
+                                @else
+                                    <i class="far fa-star"></i>
+                                @endif
+                            @endfor
+                        </div>
+                        <p class="testimonial-text">"{{ $testimonial->description }}"</p>
+                        <div class="testimonial-author">
+                            @if($testimonial->image)
+                                <img src="{{ asset($testimonial->image) }}" alt="{{ $testimonial->name }}">
+                            @else
+                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=80" alt="{{ $testimonial->name }}">
+                            @endif
+                            <div class="author-info">
+                                <h4>{{ $testimonial->name }}</h4>
+                                <p>{{ $testimonial->position }}</p>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        @else
+            <!-- Fallback to default testimonials if none exist -->
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">"The team at Luxury Villas helped us find our dream home in Malibu. Their attention to detail and understanding of our needs was exceptional. We couldn't be happier with our new beachfront villa."</p>
+                    <div class="testimonial-author">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=80" alt="Client">
+                        <div class="author-info">
+                            <h4>Michael Anderson</h4>
+                            <p>CEO, Tech Innovations</p>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="testimonial-card">
-                <div class="testimonial-stars">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                </div>
-                <p class="testimonial-text">"Outstanding service from start to finish. They made the entire process seamless and found us the perfect villa in the French Riviera. Their expertise in luxury real estate is unmatched."</p>
-                <div class="testimonial-author">
-                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&q=80" alt="Client">
-                    <div class="author-info">
-                        <h4>Sophie Laurent</h4>
-                        <p>Fashion Designer</p>
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">"Outstanding service from start to finish. They made the entire process seamless and found us the perfect villa in the French Riviera. Their expertise in luxury real estate is unmatched."</p>
+                    <div class="testimonial-author">
+                        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&q=80" alt="Client">
+                        <div class="author-info">
+                            <h4>Sophie Laurent</h4>
+                            <p>Fashion Designer</p>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="testimonial-card">
-                <div class="testimonial-stars">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                </div>
-                <p class="testimonial-text">"Professional, knowledgeable, and incredibly patient. They took the time to understand exactly what we were looking for and delivered beyond our expectations. Highly recommend!"</p>
-                <div class="testimonial-author">
-                    <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&q=80" alt="Client">
-                    <div class="author-info">
-                        <h4>David Chen</h4>
-                        <p>Investment Banker</p>
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">"Professional, knowledgeable, and incredibly patient. They took the time to understand exactly what we were looking for and delivered beyond our expectations. Highly recommend!"</p>
+                    <div class="testimonial-author">
+                        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&q=80" alt="Client">
+                        <div class="author-info">
+                            <h4>David Chen</h4>
+                            <p>Investment Banker</p>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        @endif
     </div>
 </section>
 @endsection

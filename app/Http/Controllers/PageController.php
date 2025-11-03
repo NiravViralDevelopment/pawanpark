@@ -20,7 +20,12 @@ class PageController extends Controller
             ->take(6)
             ->get();
         
-        return view('home', compact('banners', 'featuredProjects'));
+        // Get testimonials for home page (latest 6)
+        $testimonials = \App\Models\Testimonial::latest()
+            ->take(6)
+            ->get();
+        
+        return view('home', compact('banners', 'featuredProjects', 'testimonials'));
     }
 
     public function about()

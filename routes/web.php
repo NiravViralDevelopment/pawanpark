@@ -46,6 +46,10 @@ Route::prefix('admin')->name('admin.')->group(function () {
         
         // Teams CRUD
         Route::resource('teams', \App\Http\Controllers\Admin\TeamController::class);
+        
+        // Testimonials CRUD
+        Route::resource('testimonials', \App\Http\Controllers\Admin\TestimonialController::class);
+        
         // Contacts Management
         Route::get('/contacts', [\App\Http\Controllers\Admin\ContactController::class, 'index'])->name('contacts.index');
         Route::get('/contacts/{id}', [\App\Http\Controllers\Admin\ContactController::class, 'show'])->name('contacts.show');
