@@ -1,6 +1,25 @@
 @extends('layouts.app')
 
-@section('title', 'Projects - Luxury Villas')
+@section('title', 'Projects - Premium Properties | Gurukrupa Marketing')
+
+@section('meta_tags')
+    <meta name="description" content="Browse our exclusive collection of premium properties including luxury villas, modern apartments, and commercial spaces. Find your dream property with Gurukrupa Marketing.">
+    <meta name="keywords" content="real estate projects, luxury properties, villas for sale, apartments for sale, commercial properties, premium real estate, gurukrupa projects">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ url('/project') }}">
+    <meta property="og:title" content="Projects - Premium Properties | Gurukrupa Marketing">
+    <meta property="og:description" content="Browse our exclusive collection of premium properties including luxury villas, modern apartments, and commercial spaces.">
+    <meta property="og:image" content="{{ asset('assets/images/Media (3).jpg') }}">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="{{ url('/project') }}">
+    <meta property="twitter:title" content="Projects - Premium Properties | Gurukrupa Marketing">
+    <meta property="twitter:description" content="Browse our exclusive collection of premium properties including luxury villas, modern apartments, and commercial spaces.">
+    <meta property="twitter:image" content="{{ asset('assets/images/Media (3).jpg') }}">
+@endsection
 
 @section('content')
 <!-- Page Header -->

@@ -49,6 +49,9 @@ class TestimonialController extends Controller
             'description' => 'required|string|min:10',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,webp|max:5120',
             'rating' => 'required|integer|min:1|max:5',
+            'meta_title' => 'nullable|string|max:60',
+            'meta_description' => 'nullable|string|max:160',
+            'meta_keywords' => 'nullable|string|max:255',
         ]);
 
         // Handle image upload
@@ -66,6 +69,9 @@ class TestimonialController extends Controller
             'description' => $validated['description'],
             'image' => $imagePath,
             'rating' => $validated['rating'],
+            'meta_title' => $validated['meta_title'] ?? null,
+            'meta_description' => $validated['meta_description'] ?? null,
+            'meta_keywords' => $validated['meta_keywords'] ?? null,
         ]);
 
         return redirect()->route('admin.testimonials.index')
@@ -101,6 +107,9 @@ class TestimonialController extends Controller
             'description' => 'required|string|min:10',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:5120',
             'rating' => 'required|integer|min:1|max:5',
+            'meta_title' => 'nullable|string|max:60',
+            'meta_description' => 'nullable|string|max:160',
+            'meta_keywords' => 'nullable|string|max:255',
         ]);
 
         // Handle image upload
@@ -122,6 +131,9 @@ class TestimonialController extends Controller
             'description' => $validated['description'],
             'image' => $imagePath,
             'rating' => $validated['rating'],
+            'meta_title' => $validated['meta_title'] ?? null,
+            'meta_description' => $validated['meta_description'] ?? null,
+            'meta_keywords' => $validated['meta_keywords'] ?? null,
         ]);
 
         return redirect()->route('admin.testimonials.index')

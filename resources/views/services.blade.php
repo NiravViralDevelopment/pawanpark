@@ -1,6 +1,25 @@
 @extends('layouts.app')
 
-@section('title', 'Services - Luxury Villas')
+@section('title', 'Our Services - Gurukrupa Marketing | Real Estate Solutions')
+
+@section('meta_tags')
+    <meta name="description" content="Explore our comprehensive real estate services including property buying, selling, investment consulting, property management, and legal assistance. Expert guidance for all your property needs.">
+    <meta name="keywords" content="real estate services, property buying, property selling, investment consulting, property management, real estate solutions, gurukrupa services">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ url('/services') }}">
+    <meta property="og:title" content="Our Services - Gurukrupa Marketing | Real Estate Solutions">
+    <meta property="og:description" content="Explore our comprehensive real estate services including property buying, selling, investment consulting, and property management.">
+    <meta property="og:image" content="{{ asset('assets/images/Media (5).jpg') }}">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="{{ url('/services') }}">
+    <meta property="twitter:title" content="Our Services - Gurukrupa Marketing | Real Estate Solutions">
+    <meta property="twitter:description" content="Explore our comprehensive real estate services including property buying, selling, investment consulting, and property management.">
+    <meta property="twitter:image" content="{{ asset('assets/images/Media (5).jpg') }}">
+@endsection
 
 @section('content')
 <!-- Page Header -->

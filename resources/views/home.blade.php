@@ -1,6 +1,47 @@
 @extends('layouts.app')
 
-@section('title', 'Luxury Villas - Premium Real Estate')
+@php
+    // Get first active banner for SEO meta tags
+    $firstBanner = $banners->first();
+    
+    // SEO defaults
+    $metaTitle = $firstBanner && $firstBanner->meta_title 
+        ? $firstBanner->meta_title 
+        : 'Gurukrupa Marketing - Premium Real Estate & Property Solutions';
+    
+    $metaDescription = $firstBanner && $firstBanner->meta_description 
+        ? $firstBanner->meta_description 
+        : 'Discover premium real estate properties with Gurukrupa Marketing. We offer luxury villas, apartments, and commercial properties with expert guidance and personalized service.';
+    
+    $metaKeywords = $firstBanner && $firstBanner->meta_keywords 
+        ? $firstBanner->meta_keywords 
+        : 'real estate, property, luxury villas, apartments, gurukrupa marketing, property for sale, real estate agent, property consultant';
+    
+    $metaImage = $firstBanner && $firstBanner->image 
+        ? asset($firstBanner->image) 
+        : asset('assets/images/logo.jpg');
+@endphp
+
+@section('title', $metaTitle)
+
+@section('meta_tags')
+    <meta name="description" content="{{ $metaDescription }}">
+    <meta name="keywords" content="{{ $metaKeywords }}">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ url('/') }}">
+    <meta property="og:title" content="{{ $metaTitle }}">
+    <meta property="og:description" content="{{ $metaDescription }}">
+    <meta property="og:image" content="{{ $metaImage }}">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="{{ url('/') }}">
+    <meta property="twitter:title" content="{{ $metaTitle }}">
+    <meta property="twitter:description" content="{{ $metaDescription }}">
+    <meta property="twitter:image" content="{{ $metaImage }}">
+@endsection
 
 @section('content')
 <!-- Hero Banner Slider -->

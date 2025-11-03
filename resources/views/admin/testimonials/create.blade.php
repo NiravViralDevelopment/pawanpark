@@ -112,6 +112,64 @@
                     @enderror
                 </div>
 
+                {{-- SEO Meta Information --}}
+                <div class="form-section">
+                    <h3 class="section-title">
+                        <i class="fas fa-search"></i>
+                        SEO Meta Information
+                    </h3>
+                    <p class="section-description">Optimize testimonial for search engines and social media sharing.</p>
+                    
+                    <div class="form-group">
+                        <label for="meta_title">Meta Title</label>
+                        <input 
+                            type="text" 
+                            id="meta_title" 
+                            name="meta_title" 
+                            class="form-control @error('meta_title') is-invalid @enderror" 
+                            value="{{ old('meta_title') }}" 
+                            placeholder="e.g., Client Review - Gurukrupa Marketing"
+                            maxlength="60"
+                        >
+                        <small class="form-text">Recommended: 50-60 characters. Leave blank to use default.</small>
+                        @error('meta_title')
+                            <div class="error-text">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="form-group">
+                        <label for="meta_description">Meta Description</label>
+                        <textarea 
+                            id="meta_description" 
+                            name="meta_description" 
+                            class="form-control @error('meta_description') is-invalid @enderror" 
+                            rows="3"
+                            placeholder="Brief description of the testimonial..."
+                            maxlength="160"
+                        >{{ old('meta_description') }}</textarea>
+                        <small class="form-text">Recommended: 150-160 characters. This appears in search results.</small>
+                        @error('meta_description')
+                            <div class="error-text">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="form-group">
+                        <label for="meta_keywords">Meta Keywords</label>
+                        <input 
+                            type="text" 
+                            id="meta_keywords" 
+                            name="meta_keywords" 
+                            class="form-control @error('meta_keywords') is-invalid @enderror" 
+                            value="{{ old('meta_keywords') }}" 
+                            placeholder="testimonial, review, client feedback"
+                        >
+                        <small class="form-text">Separate keywords with commas.</small>
+                        @error('meta_keywords')
+                            <div class="error-text">{{ $message }}</div>
+                        @enderror
+                    </div>
+                </div>
+
                 <div class="form-actions">
                     <button type="submit" class="btn btn-primary">
                         <i class="fas fa-save"></i> Create Testimonial
@@ -334,6 +392,38 @@
 
     .btn-secondary:hover {
         background: #5a6268;
+    }
+
+    .form-section {
+        margin-bottom: 35px;
+        padding-bottom: 35px;
+        border-bottom: 1px solid #e5e5e5;
+    }
+
+    .form-section:last-of-type {
+        border-bottom: none;
+    }
+
+    .section-title {
+        font-size: 16px;
+        font-weight: 600;
+        color: #333;
+        margin-bottom: 8px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .section-title i {
+        color: #666;
+        font-size: 14px;
+    }
+
+    .section-description {
+        color: #666;
+        font-size: 13px;
+        margin-bottom: 20px;
+        line-height: 1.5;
     }
 </style>
 @endsection

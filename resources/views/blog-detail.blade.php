@@ -1,6 +1,31 @@
 @extends('layouts.app')
 
-@section('title', $blog->title . ' - Luxury Villas Blog')
+@section('title', $blog->meta_title ?? $blog->title . ' - Gurukrupa Marketing Blog')
+
+@section('meta_tags')
+    <meta name="description" content="{{ $blog->meta_description ?? Str::limit(strip_tags($blog->description), 160) }}">
+    <meta name="keywords" content="{{ $blog->meta_keywords ?? 'blog, real estate, property news, gurukrupa marketing' }}">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:title" content="{{ $blog->meta_title ?? $blog->title }}">
+    <meta property="og:description" content="{{ $blog->meta_description ?? Str::limit(strip_tags($blog->description), 160) }}">
+    @if($blog->image)
+        <meta property="og:image" content="{{ asset($blog->image) }}">
+    @endif
+    <meta property="article:published_time" content="{{ $blog->date->toIso8601String() }}">
+    <meta property="article:author" content="{{ $blog->posted_by }}">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="{{ url()->current() }}">
+    <meta property="twitter:title" content="{{ $blog->meta_title ?? $blog->title }}">
+    <meta property="twitter:description" content="{{ $blog->meta_description ?? Str::limit(strip_tags($blog->description), 160) }}">
+    @if($blog->image)
+        <meta property="twitter:image" content="{{ asset($blog->image) }}">
+    @endif
+@endsection
 
 @section('content')
 <!-- Blog Header -->

@@ -12,6 +12,9 @@ class Team extends Model
         'position',
         'phone_number',
         'whatsapp_number',
+        'meta_title',
+        'meta_description',
+        'meta_keywords',
     ];
 }
 

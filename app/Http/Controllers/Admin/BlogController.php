@@ -49,6 +49,9 @@ class BlogController extends Controller
             'posted_by' => 'required|string|max:255',
             'date' => 'required|date',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:5120',
+            'meta_title' => 'nullable|string|max:60',
+            'meta_description' => 'nullable|string|max:160',
+            'meta_keywords' => 'nullable|string|max:255',
         ]);
 
         // Handle image upload
@@ -65,6 +68,9 @@ class BlogController extends Controller
             'posted_by' => $validated['posted_by'],
             'date' => $validated['date'],
             'image' => $imagePath,
+            'meta_title' => $validated['meta_title'] ?? null,
+            'meta_description' => $validated['meta_description'] ?? null,
+            'meta_keywords' => $validated['meta_keywords'] ?? null,
         ]);
 
         return redirect()->route('admin.blogs.index')
@@ -100,6 +106,9 @@ class BlogController extends Controller
             'posted_by' => 'required|string|max:255',
             'date' => 'required|date',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:5120',
+            'meta_title' => 'nullable|string|max:60',
+            'meta_description' => 'nullable|string|max:160',
+            'meta_keywords' => 'nullable|string|max:255',
         ]);
 
         // Handle image upload
@@ -120,6 +129,9 @@ class BlogController extends Controller
             'posted_by' => $validated['posted_by'],
             'date' => $validated['date'],
             'image' => $imagePath,
+            'meta_title' => $validated['meta_title'] ?? null,
+            'meta_description' => $validated['meta_description'] ?? null,
+            'meta_keywords' => $validated['meta_keywords'] ?? null,
         ]);
 
         return redirect()->route('admin.blogs.index')

@@ -1,6 +1,25 @@
 @extends('layouts.app')
 
-@section('title', 'Contact - Luxury Villas')
+@section('title', 'Contact Us - Gurukrupa Marketing | Get in Touch')
+
+@section('meta_tags')
+    <meta name="description" content="Contact Gurukrupa Marketing for all your real estate needs. Get in touch with our expert team for property inquiries, consultations, and personalized service. Call us at +91 9510312047.">
+    <meta name="keywords" content="contact gurukrupa marketing, real estate contact, property inquiry, get in touch, real estate consultant contact, property services contact">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ url('/contact') }}">
+    <meta property="og:title" content="Contact Us - Gurukrupa Marketing | Get in Touch">
+    <meta property="og:description" content="Contact Gurukrupa Marketing for all your real estate needs. Expert consultation and personalized service.">
+    <meta property="og:image" content="{{ asset('assets/images/Media (8).jpg') }}">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="{{ url('/contact') }}">
+    <meta property="twitter:title" content="Contact Us - Gurukrupa Marketing | Get in Touch">
+    <meta property="twitter:description" content="Contact Gurukrupa Marketing for all your real estate needs. Expert consultation and personalized service.">
+    <meta property="twitter:image" content="{{ asset('assets/images/Media (8).jpg') }}">
+@endsection
 
 @section('content')
 <!-- Page Header -->
@@ -43,7 +62,7 @@
                         </div>
                         <div class="contact-details">
                             <h4>Call Us</h4>
-                            <p>+1 (310) 555-0123<br>+1 (310) 555-0124</p>
+                            <p>+91 9510312047<br>+91 9913139788</p>
                         </div>
                     </div>
 
@@ -63,7 +82,7 @@
                         </div>
                         <div class="contact-details">
                             <h4>Business Hours</h4>
-                            <p>Monday - Friday: 9:00 AM - 6:00 PM<br>Saturday: 10:00 AM - 4:00 PM</p>
+                            <p>Monday - Sunday: 9:00 AM - 6:00 PM</p>
                         </div>
                     </div>
                 </div>
@@ -110,14 +129,7 @@
 <section class="map-section">
     <div class="container">
         <div class="map-container">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3305.4537266347!2d-118.40570492346687!3d34.073619873154825!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c2bc35fbd217ef%3A0xcafb52e1d4c22e03!2sBeverly%20Hills%2C%20CA%2C%20USA!5e0!3m2!1sen!2s!4v1234567890" 
-                    width="100%" 
-                    height="500" 
-                    style="border:0;" 
-                    allowfullscreen="" 
-                    loading="lazy" 
-                    referrerpolicy="no-referrer-when-downgrade">
-            </iframe>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3687.8364813055805!2d73.34060529999999!3d22.435179599999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395fd3005a008337%3A0x7c175d6413ee2716!2sPawan%20Park%20Tenament!5e0!3m2!1sen!2sin!4v1762146198413!5m2!1sen!2sin%22 width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
     </div>
 </section>

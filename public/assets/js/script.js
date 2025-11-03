@@ -339,10 +339,11 @@ if (contactForm) {
 const scrollButton = document.createElement('button');
 scrollButton.innerHTML = '<i class="fas fa-arrow-up"></i>';
 scrollButton.className = 'scroll-to-top';
+scrollButton.setAttribute('aria-label', 'Scroll to top');
 scrollButton.style.cssText = `
     position: fixed;
-    bottom: 30px;
-    right: 30px;
+    bottom: 20px;
+    right: 20px;
     width: 50px;
     height: 50px;
     background: var(--gold);
@@ -356,7 +357,18 @@ scrollButton.style.cssText = `
     transition: all 0.3s ease;
     z-index: 999;
     box-shadow: 0 5px 15px rgba(201, 164, 94, 0.3);
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
 `;
+
+// Mobile-specific adjustments
+if (window.innerWidth <= 768) {
+    scrollButton.style.bottom = '15px';
+    scrollButton.style.right = '15px';
+    scrollButton.style.width = '45px';
+    scrollButton.style.height = '45px';
+    scrollButton.style.fontSize = '18px';
+}
 
 document.body.appendChild(scrollButton);
 
@@ -427,6 +439,6 @@ document.querySelectorAll('img').forEach(img => {
 */
 
 // ==================== Console Welcome Message ====================
-console.log('%c Welcome to Luxury Villas ', 'background: #c9a45e; color: white; font-size: 20px; padding: 10px;');
+console.log('%c Welcome to Gurukrupa Marketing ', 'background: #c9a45e; color: white; font-size: 20px; padding: 10px;');
 console.log('%c Premium Real Estate Solutions ', 'color: #2c2c2c; font-size: 14px;');
 

@@ -12,6 +12,9 @@ class Testimonial extends Model
         'description',
         'image',
         'rating',
+        'meta_title',
+        'meta_description',
+        'meta_keywords',
     ];
 
     protected $casts = [

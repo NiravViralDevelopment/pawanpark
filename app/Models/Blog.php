@@ -12,6 +12,9 @@ class Blog extends Model
         'posted_by',
         'date',
         'image',
+        'meta_title',
+        'meta_description',
+        'meta_keywords',
     ];
 
     protected $casts = [

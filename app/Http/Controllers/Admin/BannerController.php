@@ -46,6 +46,9 @@ class BannerController extends Controller
         $validated = $request->validate([
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,webp|max:5120',
             'order' => 'nullable|integer|min:0',
+            'meta_title' => 'nullable|string|max:60',
+            'meta_description' => 'nullable|string|max:160',
+            'meta_keywords' => 'nullable|string|max:255',
         ]);
 
         // Handle image upload
@@ -61,6 +64,9 @@ class BannerController extends Controller
             'image' => $imagePath,
             'is_active' => $request->has('is_active'),
             'order' => $validated['order'] ?? 0,
+            'meta_title' => $validated['meta_title'] ?? null,
+            'meta_description' => $validated['meta_description'] ?? null,
+            'meta_keywords' => $validated['meta_keywords'] ?? null,
         ]);
 
         return redirect()->route('admin.banners.index')
@@ -93,6 +99,9 @@ class BannerController extends Controller
         $validated = $request->validate([
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:5120',
             'order' => 'nullable|integer|min:0',
+            'meta_title' => 'nullable|string|max:60',
+            'meta_description' => 'nullable|string|max:160',
+            'meta_keywords' => 'nullable|string|max:255',
         ]);
 
         // Handle image upload
@@ -112,6 +121,9 @@ class BannerController extends Controller
             'image' => $imagePath,
             'is_active' => $request->has('is_active'),
             'order' => $validated['order'] ?? 0,
+            'meta_title' => $validated['meta_title'] ?? null,
+            'meta_description' => $validated['meta_description'] ?? null,
+            'meta_keywords' => $validated['meta_keywords'] ?? null,
         ]);
 
         return redirect()->route('admin.banners.index')

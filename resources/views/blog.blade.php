@@ -1,6 +1,25 @@
 @extends('layouts.app')
 
-@section('title', 'Blog - Luxury Villas')
+@section('title', 'Blog - Real Estate News & Property Insights | Gurukrupa Marketing')
+
+@section('meta_tags')
+    <meta name="description" content="Stay updated with the latest real estate news, property trends, and expert insights from Gurukrupa Marketing. Read our blog for valuable information on buying, selling, and investing in properties.">
+    <meta name="keywords" content="real estate blog, property news, real estate tips, property investment, gurukrupa marketing blog, property insights">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ url('/blog') }}">
+    <meta property="og:title" content="Blog - Real Estate News & Property Insights | Gurukrupa Marketing">
+    <meta property="og:description" content="Stay updated with the latest real estate news, property trends, and expert insights from Gurukrupa Marketing.">
+    <meta property="og:image" content="{{ asset('assets/images/Media (7).jpg') }}">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="{{ url('/blog') }}">
+    <meta property="twitter:title" content="Blog - Real Estate News & Property Insights | Gurukrupa Marketing">
+    <meta property="twitter:description" content="Stay updated with the latest real estate news, property trends, and expert insights from Gurukrupa Marketing.">
+    <meta property="twitter:image" content="{{ asset('assets/images/Media (7).jpg') }}">
+@endsection
 
 @section('content')
 <!-- Page Header -->

@@ -30,6 +30,7 @@ body {
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    min-width: 320px;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -1230,7 +1231,14 @@ ul {
     }
 
     .hero-slider {
-        height: 70vh;
+        height: 50vh;
+        min-height: 400px;
+        margin-top: 60px;
+    }
+    
+    .slide-bg {
+        background-size: cover;
+        background-position: center;
     }
 
     .slide-content h1 {
@@ -1282,6 +1290,16 @@ ul {
 
     .slider-btn.next {
         right: 15px;
+    }
+    
+    .slider-dots {
+        bottom: 20px;
+        gap: 10px;
+    }
+    
+    .dot {
+        width: 10px;
+        height: 10px;
     }
 
     .page-header h1 {
@@ -1399,7 +1417,9 @@ ul {
     }
 
     .hero-slider {
-        height: 60vh;
+        height: 45vh;
+        min-height: 350px;
+        margin-top: 55px;
     }
 
     .slide-content h1 {
@@ -2534,6 +2554,743 @@ ul {
     }
     to {
         opacity: 1;
+    }
+}
+
+/* ==================== Enhanced Mobile Responsive Styles ==================== */
+
+/* Tablet Landscape - Additional Improvements */
+@media (max-width: 1024px) {
+    .logo {
+        font-size: 20px;
+    }
+    
+    .logo img {
+        height: 50px;
+    }
+    
+    .property-layout {
+        grid-template-columns: 1fr;
+    }
+    
+    .contact-info-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Mobile - Enhanced Responsiveness */
+@media (max-width: 768px) {
+    /* Typography */
+    h1 {
+        font-size: 32px !important;
+    }
+    
+    h2 {
+        font-size: 28px !important;
+    }
+    
+    h3 {
+        font-size: 24px !important;
+    }
+    
+    h4 {
+        font-size: 20px !important;
+    }
+    
+    /* Navbar & Header */
+    .navbar {
+        padding: 10px 0;
+    }
+    
+    .nav-wrapper {
+        padding: 0 15px;
+    }
+    
+    /* Header Logo */
+    .logo {
+        font-size: 16px;
+    }
+    
+    .logo img {
+        height: 40px;
+    }
+    
+    .logo span {
+        display: none;
+    }
+    
+    /* Hero Slider - Reduced Height */
+    .hero-slider {
+        height: 50vh !important;
+        min-height: 380px;
+        max-height: 500px;
+        margin-top: 60px;
+    }
+    
+    .slide-bg {
+        background-size: cover !important;
+        background-position: center !important;
+    }
+    
+    .slider-btn {
+        width: 35px;
+        height: 35px;
+        font-size: 14px;
+    }
+    
+    .slider-btn.prev {
+        left: 10px;
+    }
+    
+    .slider-btn.next {
+        right: 10px;
+    }
+    
+    .slider-dots {
+        bottom: 15px;
+    }
+    
+    /* Sections Padding */
+    section {
+        padding: 50px 0 !important;
+    }
+    
+    section:not(.hero-slider) {
+        padding: 50px 0 !important;
+    }
+    
+    .section-header {
+        margin-bottom: 40px;
+    }
+    
+    /* Hero Buttons */
+    .slide-buttons {
+        flex-direction: column;
+        gap: 12px;
+        align-items: center;
+    }
+    
+    .slide-buttons .btn {
+        width: auto;
+        min-width: 200px;
+    }
+    
+    /* Villa/Property Cards */
+    .villa-card,
+    .property-card {
+        margin-bottom: 20px;
+    }
+    
+    .villa-features,
+    .property-features {
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+    
+    .villa-features span,
+    .property-features span {
+        font-size: 13px;
+    }
+    
+    .villa-footer,
+    .property-footer {
+        flex-direction: column;
+        gap: 15px;
+        align-items: flex-start;
+    }
+    
+    .villa-footer .btn,
+    .property-footer .btn {
+        width: 100%;
+        text-align: center;
+        justify-content: center;
+    }
+    
+    /* Blog Cards */
+    .blog-card {
+        margin-bottom: 20px;
+    }
+    
+    .blog-meta {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    
+    .blog-meta span {
+        font-size: 12px;
+    }
+    
+    /* Testimonial Cards */
+    .testimonial-card {
+        margin-bottom: 20px;
+        padding: 25px;
+    }
+    
+    .testimonial-text {
+        font-size: 15px;
+    }
+    
+    .testimonial-author img {
+        width: 50px;
+        height: 50px;
+    }
+    
+    /* Contact Info */
+    .contact-info-card {
+        padding: 25px;
+    }
+    
+    .contact-info-grid {
+        gap: 20px;
+    }
+    
+    /* Forms */
+    .contact-form,
+    .sidebar-form {
+        padding: 25px;
+    }
+    
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .form-group label {
+        font-size: 14px;
+    }
+    
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        padding: 12px 15px;
+        font-size: 15px;
+    }
+    
+    .form-group textarea {
+        min-height: 120px;
+    }
+    
+    /* Buttons Full Width on Mobile */
+    .btn {
+        padding: 12px 24px;
+        font-size: 13px;
+    }
+    
+    /* Gallery */
+    .gallery-main {
+        height: 350px;
+    }
+    
+    .gallery-thumbnails {
+        gap: 8px;
+    }
+    
+    .gallery-thumbnails img {
+        height: 70px;
+    }
+    
+    /* Property Stats */
+    .property-stats {
+        gap: 15px;
+    }
+    
+    .stat-item {
+        padding: 15px;
+    }
+    
+    .stat-item i {
+        font-size: 24px;
+    }
+    
+    .stat-value {
+        font-size: 20px;
+    }
+    
+    .stat-label {
+        font-size: 13px;
+    }
+    
+    /* Features Grid */
+    .features-grid {
+        gap: 15px;
+    }
+    
+    .feature-item {
+        padding: 15px;
+        font-size: 14px;
+    }
+    
+    /* Modal */
+    .modal-content {
+        width: 95%;
+        margin: 10px;
+        padding: 25px;
+    }
+    
+    .modal-header h3 {
+        font-size: 22px;
+    }
+    
+    .close-modal {
+        top: 15px;
+        right: 15px;
+        width: 35px;
+        height: 35px;
+        font-size: 24px;
+    }
+    
+    /* Sidebar */
+    .sidebar {
+        margin-top: 40px;
+    }
+    
+    .sidebar-card {
+        padding: 25px;
+    }
+    
+    /* Blog Detail */
+    .blog-detail-header h1 {
+        font-size: 32px;
+    }
+    
+    .blog-detail-meta {
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+    
+    .blog-detail-image {
+        height: 300px;
+    }
+    
+    .blog-detail-content {
+        font-size: 15px;
+        line-height: 1.8;
+    }
+    
+    .blog-detail-content h2 {
+        font-size: 26px;
+        margin: 30px 0 15px;
+    }
+    
+    .blog-detail-content h3 {
+        font-size: 22px;
+        margin: 25px 0 12px;
+    }
+    
+    /* Related Blog */
+    .related-blog-card {
+        margin-bottom: 20px;
+    }
+    
+    /* Footer */
+    .footer-logo {
+        margin-bottom: 20px;
+    }
+    
+    .footer-logo img {
+        height: 50px;
+    }
+    
+    .footer-column h3 {
+        font-size: 18px;
+        margin-bottom: 15px;
+    }
+    
+    .footer-column ul li {
+        margin-bottom: 10px;
+        font-size: 14px;
+    }
+    
+    .social-links {
+        gap: 12px;
+    }
+    
+    .social-links a {
+        width: 38px;
+        height: 38px;
+        font-size: 16px;
+    }
+    
+    .footer-bottom {
+        padding: 20px 0;
+    }
+    
+    .footer-bottom p {
+        font-size: 13px;
+    }
+    
+    /* Services Grid */
+    .service-card {
+        padding: 30px 25px;
+    }
+    
+    .service-icon {
+        width: 70px;
+        height: 70px;
+        font-size: 30px;
+    }
+    
+    .service-card h3 {
+        font-size: 20px;
+    }
+    
+    /* Pagination */
+    .pagination a,
+    .pagination span {
+        width: 38px;
+        height: 38px;
+        font-size: 14px;
+    }
+    
+    /* About Page */
+    .about-intro-text h2 {
+        font-size: 28px;
+    }
+    
+    .about-intro-text p {
+        font-size: 15px;
+    }
+    
+    /* Video Container */
+    .video-container {
+        height: 300px !important;
+    }
+    
+    .video-container video,
+    .video-container iframe {
+        height: 100%;
+    }
+}
+
+/* Small Mobile - Extra Enhancements */
+@media (max-width: 480px) {
+    /* Further Typography Adjustments */
+    h1 {
+        font-size: 26px !important;
+    }
+    
+    h2 {
+        font-size: 22px !important;
+    }
+    
+    h3 {
+        font-size: 20px !important;
+    }
+    
+    h4 {
+        font-size: 18px !important;
+    }
+    
+    /* Navbar */
+    .navbar {
+        padding: 8px 0;
+    }
+    
+    /* Logo */
+    .logo img {
+        height: 35px;
+    }
+    
+    .logo {
+        font-size: 14px;
+    }
+    
+    /* Hero Slider */
+    .hero-slider {
+        height: 42vh !important;
+        min-height: 320px;
+        max-height: 400px;
+        margin-top: 55px;
+    }
+    
+    .slider-btn {
+        width: 32px;
+        height: 32px;
+        font-size: 12px;
+    }
+    
+    .slider-btn.prev {
+        left: 8px;
+    }
+    
+    .slider-btn.next {
+        right: 8px;
+    }
+    
+    .slider-dots {
+        bottom: 12px;
+        gap: 8px;
+    }
+    
+    .dot {
+        width: 8px;
+        height: 8px;
+    }
+    
+    /* Sections */
+    section {
+        padding: 40px 0 !important;
+    }
+    
+    section:not(.hero-slider) {
+        padding: 40px 0 !important;
+    }
+    
+    .section-header {
+        margin-bottom: 30px;
+    }
+    
+    .section-title {
+        font-size: 22px;
+    }
+    
+    .section-subtitle {
+        font-size: 11px;
+    }
+    
+    /* Buttons */
+    .btn {
+        padding: 10px 20px;
+        font-size: 12px;
+        letter-spacing: 0.5px;
+    }
+    
+    .slide-buttons .btn {
+        width: 100%;
+        min-width: unset;
+    }
+    
+    /* Cards Padding */
+    .villa-card .villa-info,
+    .property-card .property-info,
+    .blog-card .blog-content,
+    .service-card,
+    .testimonial-card {
+        padding: 20px;
+    }
+    
+    /* Forms */
+    .contact-form,
+    .sidebar-form {
+        padding: 20px;
+    }
+    
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        padding: 10px 12px;
+        font-size: 14px;
+    }
+    
+    /* Modal */
+    .modal-content {
+        padding: 20px;
+    }
+    
+    .modal-header h3 {
+        font-size: 20px;
+    }
+    
+    .modal-body {
+        padding: 15px 0;
+    }
+    
+    /* Gallery */
+    .gallery-main {
+        height: 280px;
+    }
+    
+    .gallery-thumbnails img {
+        height: 60px;
+    }
+    
+    /* Stats */
+    .property-stats {
+        grid-template-columns: 1fr;
+    }
+    
+    .stat-item {
+        padding: 12px;
+    }
+    
+    /* Page Header */
+    .page-header {
+        height: 250px;
+    }
+    
+    .page-header h1 {
+        font-size: 28px;
+    }
+    
+    .page-header p {
+        font-size: 14px;
+    }
+    
+    /* Footer */
+    .footer-logo img {
+        height: 45px;
+    }
+    
+    .footer-column h3 {
+        font-size: 16px;
+    }
+    
+    .footer-column ul li {
+        font-size: 13px;
+    }
+    
+    /* Blog Detail */
+    .blog-detail-header h1 {
+        font-size: 26px;
+    }
+    
+    .blog-detail-image {
+        height: 250px;
+    }
+    
+    .blog-detail-content {
+        font-size: 14px;
+    }
+    
+    .blog-detail-content h2 {
+        font-size: 22px;
+    }
+    
+    .blog-detail-content h3 {
+        font-size: 20px;
+    }
+    
+    /* Video Container */
+    .video-container {
+        height: 220px !important;
+    }
+    
+    /* Contact Cards */
+    .contact-info-card {
+        padding: 20px;
+    }
+    
+    .contact-info-item {
+        font-size: 14px;
+    }
+    
+    /* Service Icon */
+    .service-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 26px;
+    }
+}
+
+/* Extra Small Devices */
+@media (max-width: 360px) {
+    .container {
+        padding: 0 10px;
+    }
+    
+    .hero-slider {
+        height: 38vh;
+        min-height: 300px;
+        max-height: 380px;
+        margin-top: 50px;
+    }
+    
+    .slide-content h1 {
+        font-size: 24px;
+    }
+    
+    .slide-content p {
+        font-size: 13px;
+    }
+    
+    .slider-btn {
+        width: 30px;
+        height: 30px;
+        font-size: 11px;
+    }
+    
+    .slider-dots {
+        bottom: 10px;
+        gap: 6px;
+    }
+    
+    .dot {
+        width: 7px;
+        height: 7px;
+    }
+    
+    .section-title {
+        font-size: 20px;
+    }
+    
+    .btn {
+        padding: 8px 16px;
+        font-size: 11px;
+    }
+    
+    .gallery-main {
+        height: 240px;
+    }
+    
+    .page-header {
+        height: 220px;
+    }
+    
+    .page-header h1 {
+        font-size: 24px;
+    }
+    
+    .logo img {
+        height: 35px;
+    }
+}
+
+/* Landscape Orientation for Small Devices */
+@media (max-height: 600px) and (orientation: landscape) {
+    .hero-slider {
+        height: 100vh;
+    }
+    
+    .nav-menu {
+        height: calc(100vh - 60px);
+        top: 60px;
+        padding: 20px;
+    }
+    
+    .page-header {
+        height: 100vh;
+    }
+}
+
+/* Touch Device Optimizations */
+@media (hover: none) and (pointer: coarse) {
+    /* Remove hover effects on touch devices */
+    .villa-card:hover,
+    .blog-card:hover,
+    .service-card:hover,
+    .testimonial-card:hover {
+        transform: none;
+    }
+    
+    /* Larger touch targets */
+    .btn,
+    .filter-btn,
+    .pagination a {
+        min-height: 44px;
+        min-width: 44px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .hamburger {
+        min-width: 44px;
+        min-height: 44px;
+    }
+    
+    .close-modal {
+        min-width: 44px;
+        min-height: 44px;
     }
 }
 

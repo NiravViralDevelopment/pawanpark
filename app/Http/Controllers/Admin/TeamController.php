@@ -49,6 +49,9 @@ class TeamController extends Controller
             'position' => 'required|string|max:255',
             'phone_number' => 'required|string|min:10|max:10',
             'whatsapp_number' => 'required|string|min:10|max:10',
+            'meta_title' => 'nullable|string|max:60',
+            'meta_description' => 'nullable|string|max:160',
+            'meta_keywords' => 'nullable|string|max:255',
         ]);
 
         // Handle image upload
@@ -66,6 +69,9 @@ class TeamController extends Controller
             'position' => $validated['position'],
             'phone_number' => $validated['phone_number'],
             'whatsapp_number' => $validated['whatsapp_number'],
+            'meta_title' => $validated['meta_title'] ?? null,
+            'meta_description' => $validated['meta_description'] ?? null,
+            'meta_keywords' => $validated['meta_keywords'] ?? null,
         ]);
 
         return redirect()->route('admin.teams.index')
@@ -101,6 +107,9 @@ class TeamController extends Controller
             'position' => 'required|string|max:255',
             'phone_number' => 'required|string|min:10|max:10',
             'whatsapp_number' => 'required|string|min:10|max:10',
+            'meta_title' => 'nullable|string|max:60',
+            'meta_description' => 'nullable|string|max:160',
+            'meta_keywords' => 'nullable|string|max:255',
         ]);
 
         // Handle image upload
@@ -122,6 +131,9 @@ class TeamController extends Controller
             'position' => $validated['position'],
             'phone_number' => $validated['phone_number'],
             'whatsapp_number' => $validated['whatsapp_number'],
+            'meta_title' => $validated['meta_title'] ?? null,
+            'meta_description' => $validated['meta_description'] ?? null,
+            'meta_keywords' => $validated['meta_keywords'] ?? null,
         ]);
 
         return redirect()->route('admin.teams.index')

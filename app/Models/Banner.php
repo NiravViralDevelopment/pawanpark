@@ -10,6 +10,9 @@ class Banner extends Model
         'image',
         'is_active',
         'order',
+        'meta_title',
+        'meta_description',
+        'meta_keywords',
     ];
 
     protected $casts = [

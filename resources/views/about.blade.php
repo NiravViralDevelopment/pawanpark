@@ -1,6 +1,25 @@
 @extends('layouts.app')
 
-@section('title', 'About Us - Luxury Villas')
+@section('title', 'About Us - Gurukrupa Marketing | Your Trusted Real Estate Partner')
+
+@section('meta_tags')
+    <meta name="description" content="Learn about Gurukrupa Marketing - your trusted real estate partner. We provide expert property consulting, personalized service, and comprehensive real estate solutions.">
+    <meta name="keywords" content="about gurukrupa marketing, real estate company, property consultants, our team, real estate experts, trusted property advisor">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ url('/about') }}">
+    <meta property="og:title" content="About Us - Gurukrupa Marketing | Your Trusted Real Estate Partner">
+    <meta property="og:description" content="Learn about Gurukrupa Marketing - your trusted real estate partner providing expert property consulting services.">
+    <meta property="og:image" content="{{ asset('assets/images/Media (2).jpg') }}">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="{{ url('/about') }}">
+    <meta property="twitter:title" content="About Us - Gurukrupa Marketing | Your Trusted Real Estate Partner">
+    <meta property="twitter:description" content="Learn about Gurukrupa Marketing - your trusted real estate partner providing expert property consulting services.">
+    <meta property="twitter:image" content="{{ asset('assets/images/Media (2).jpg') }}">
+@endsection
 
 @section('content')
 <!-- Page Header -->
