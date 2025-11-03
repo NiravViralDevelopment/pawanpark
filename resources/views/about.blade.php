@@ -92,75 +92,42 @@
             <h2 class="section-title">Meet Our Experts</h2>
             <div class="title-divider"></div>
         </div>
-        <div class="team-grid">
-            <div class="team-member">
-                <div class="team-image">
-                    <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=600&q=80" alt="Team Member">
-                    <div class="team-overlay">
-                        <div class="team-social">
-                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                            <a href="#"><i class="fab fa-twitter"></i></a>
-                            <a href="#"><i class="fas fa-envelope"></i></a>
+        
+        @if($teams->count() > 0)
+            <div class="team-grid">
+                @foreach($teams as $team)
+                    <div class="team-member">
+                        <div class="team-image">
+                            @if($team->image)
+                                <img src="{{ asset($team->image) }}" alt="{{ $team->name }}">
+                            @else
+                                <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=600&q=80" alt="{{ $team->name }}">
+                            @endif
+                            <div class="team-overlay">
+                                <div class="team-social">
+                                    <a href="tel:{{ $team->phone_number }}" title="Call {{ $team->name }}">
+                                        <i class="fas fa-phone-alt"></i>
+                                    </a>
+                                    <a href="https://wa.me/91{{ $team->whatsapp_number }}" target="_blank" title="WhatsApp {{ $team->name }}">
+                                        <i class="fab fa-whatsapp"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="team-info">
+                            <h4>{{ $team->name }}</h4>
+                            <p>{{ $team->position }}</p>
                         </div>
                     </div>
-                </div>
-                <div class="team-info">
-                    <h4>Jonathan Williams</h4>
-                    <p>Founder & CEO</p>
-                </div>
+                @endforeach
             </div>
-
-            <div class="team-member">
-                <div class="team-image">
-                    <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600&q=80" alt="Team Member">
-                    <div class="team-overlay">
-                        <div class="team-social">
-                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                            <a href="#"><i class="fab fa-twitter"></i></a>
-                            <a href="#"><i class="fas fa-envelope"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="team-info">
-                    <h4>Sarah Mitchell</h4>
-                    <p>Chief Operations Officer</p>
-                </div>
+        @else
+            <div class="empty-state" style="text-align: center; padding: 60px 20px;">
+                <i class="fas fa-users" style="font-size: 60px; color: #ddd; margin-bottom: 20px;"></i>
+                <h3 style="font-size: 22px; color: #333; margin-bottom: 10px;">No Team Members Yet</h3>
+                <p style="color: #999;">Our team information will be available soon.</p>
             </div>
-
-            <div class="team-member">
-                <div class="team-image">
-                    <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=600&q=80" alt="Team Member">
-                    <div class="team-overlay">
-                        <div class="team-social">
-                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                            <a href="#"><i class="fab fa-twitter"></i></a>
-                            <a href="#"><i class="fas fa-envelope"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="team-info">
-                    <h4>Michael Chen</h4>
-                    <p>Senior Luxury Advisor</p>
-                </div>
-            </div>
-
-            <div class="team-member">
-                <div class="team-image">
-                    <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=600&q=80" alt="Team Member">
-                    <div class="team-overlay">
-                        <div class="team-social">
-                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                            <a href="#"><i class="fab fa-twitter"></i></a>
-                            <a href="#"><i class="fas fa-envelope"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="team-info">
-                    <h4>Emily Rodriguez</h4>
-                    <p>Director of Marketing</p>
-                </div>
-            </div>
-        </div>
+        @endif
     </div>
 </section>
 

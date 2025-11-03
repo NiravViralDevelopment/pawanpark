@@ -238,6 +238,35 @@ php artisan migrate:rollback
 - [x] Mobile responsive design
 - [x] Sidebar navigation active state
 
+## Frontend Integration
+
+### About Page (`/about`)
+
+The team members are dynamically displayed on the About page with the following features:
+
+**Display Features**:
+- Circular profile photos
+- Name and position displayed below photo
+- Hover effect shows contact options overlay
+- Two action icons on hover:
+  1. **Phone Icon** - Direct call link (`tel:` protocol)
+  2. **WhatsApp Icon** - Opens WhatsApp chat with country code +91
+
+**Implementation**:
+- Controller: `PageController@about()` fetches all team members
+- View: `resources/views/about.blade.php` displays the team grid
+- Empty state shown when no team members exist
+
+**WhatsApp Link Format**:
+```
+https://wa.me/91{whatsapp_number}
+```
+
+**Phone Call Link Format**:
+```
+tel:{phone_number}
+```
+
 ## Future Enhancements (Optional)
 
 - Add social media links (LinkedIn, Twitter, etc.)

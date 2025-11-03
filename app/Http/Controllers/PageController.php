@@ -25,7 +25,10 @@ class PageController extends Controller
 
     public function about()
     {
-        return view('about');
+        // Get all team members
+        $teams = \App\Models\Team::latest()->get();
+        
+        return view('about', compact('teams'));
     }
 
     public function services()
