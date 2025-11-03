@@ -299,10 +299,45 @@ function displayErrors(errors) {
                     <div class="detail-card">
                         <h2><i class="fas fa-video"></i> Project Video</h2>
                         <div class="video-container">
-                            <video controls class="project-video">
-                                <source src="{{ asset($project->video) }}" type="video/mp4">
-                                Your browser does not support the video tag.
-                            </video>
+                            @if(filter_var($project->video, FILTER_VALIDATE_URL))
+                                {{-- External video URL (YouTube, Vimeo, etc.) --}}
+                                @if(str_contains($project->video, 'youtube.com') || str_contains($project->video, 'youtu.be'))
+                                    @php
+                                        $videoId = '';
+                                        if (str_contains($project->video, 'youtube.com')) {
+                                            parse_str(parse_url($project->video, PHP_URL_QUERY), $params);
+                                            $videoId = $params['v'] ?? '';
+                                        } elseif (str_contains($project->video, 'youtu.be')) {
+                                            $videoId = basename(parse_url($project->video, PHP_URL_PATH));
+                                        }
+                                    @endphp
+                                    <div class="video-responsive">
+                                        <iframe 
+                                            src="https://www.youtube.com/embed/{{ $videoId }}" 
+                                            frameborder="0" 
+                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                            allowfullscreen>
+                                        </iframe>
+                                    </div>
+                                @else
+                                    {{-- Other external video URLs --}}
+                                    <div class="video-responsive">
+                                        <iframe 
+                                            src="{{ $project->video }}" 
+                                            frameborder="0" 
+                                            allowfullscreen>
+                                        </iframe>
+                                    </div>
+                                @endif
+                            @else
+                                {{-- Uploaded video file --}}
+                                <video controls class="project-video" controlsList="nodownload">
+                                    <source src="{{ asset($project->video) }}" type="video/mp4">
+                                    <source src="{{ asset($project->video) }}" type="video/webm">
+                                    <source src="{{ asset($project->video) }}" type="video/ogg">
+                                    Your browser does not support the video tag.
+                                </video>
+                            @endif
                         </div>
                     </div>
                 @endif
@@ -776,15 +811,41 @@ function displayErrors(errors) {
     position: relative;
     width: 100%;
     margin-top: 20px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.video-responsive {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    height: 0;
+    overflow: hidden;
+}
+
+.video-responsive iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
 }
 
 .project-video {
     width: 100%;
     max-width: 100%;
     height: auto;
+    display: block;
     border-radius: 8px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     background: #000;
+    min-height: 400px;
+}
+
+.project-video:focus {
+    outline: none;
 }
 
 /* Map Section Styling */
