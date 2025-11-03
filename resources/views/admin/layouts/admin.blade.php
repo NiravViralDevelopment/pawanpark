@@ -325,15 +325,9 @@
                 </a>
             </li>
             <li>
-                <a href="#" class="{{ request()->routeIs('admin.messages*') ? 'active' : '' }}">
+                <a href="{{ route('admin.contacts.index') }}" class="{{ request()->routeIs('admin.contacts*') ? 'active' : '' }}">
                     <i class="fas fa-envelope"></i>
-                    <span>Messages</span>
-                </a>
-            </li>
-            <li>
-                <a href="#" class="{{ request()->routeIs('admin.users*') ? 'active' : '' }}">
-                    <i class="fas fa-users"></i>
-                    <span>Users</span>
+                    <span>Contacts</span>
                 </a>
             </li>
             <li>

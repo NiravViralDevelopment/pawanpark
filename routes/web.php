@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\DashboardController;
 
@@ -18,6 +19,7 @@ Route::get('/project', [PageController::class, 'project'])->name('project');
 Route::get('/project/{id}', [PageController::class, 'projectDetail'])->name('project.detail');
 Route::get('/blog', [PageController::class, 'blog'])->name('blog');
 Route::get('/contact', [PageController::class, 'contact'])->name('contact');
+Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 
 /*
 |--------------------------------------------------------------------------
@@ -41,5 +43,11 @@ Route::prefix('admin')->name('admin.')->group(function () {
         
         // Banners CRUD
         Route::resource('banners', \App\Http\Controllers\Admin\BannerController::class);
+        
+        // Contacts Management
+        Route::get('/contacts', [\App\Http\Controllers\Admin\ContactController::class, 'index'])->name('contacts.index');
+        Route::get('/contacts/{id}', [\App\Http\Controllers\Admin\ContactController::class, 'show'])->name('contacts.show');
+        Route::post('/contacts/{id}/toggle-read', [\App\Http\Controllers\Admin\ContactController::class, 'toggleRead'])->name('contacts.toggle-read');
+        Route::delete('/contacts/{id}', [\App\Http\Controllers\Admin\ContactController::class, 'destroy'])->name('contacts.destroy');
     });
 });

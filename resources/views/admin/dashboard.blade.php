@@ -107,7 +107,7 @@
                 </div>
             </a>
 
-            <a href="#" class="action-card">
+            <a href="{{ route('admin.contacts.index') }}" class="action-card">
                 <div class="action-icon bg-orange">
                     <i class="fas fa-eye"></i>
                 </div>
@@ -126,48 +126,6 @@
                     <p>Manage system settings</p>
                 </div>
             </a>
-        </div>
-    </div>
-
-    <!-- Recent Activity -->
-    <div class="recent-activity">
-        <h3 class="section-title">
-            <i class="fas fa-history"></i>
-            Recent Activity
-        </h3>
-        <div class="activity-list">
-            <div class="activity-item">
-                <div class="activity-icon bg-blue">
-                    <i class="fas fa-briefcase"></i>
-                </div>
-                <div class="activity-details">
-                    <h4>New project added</h4>
-                    <p>Luxury Villa in Beverly Hills was added to the listings</p>
-                    <span class="activity-time">2 hours ago</span>
-                </div>
-            </div>
-
-            <div class="activity-item">
-                <div class="activity-icon bg-green">
-                    <i class="fas fa-blog"></i>
-                </div>
-                <div class="activity-details">
-                    <h4>Blog post published</h4>
-                    <p>"10 Tips for Luxury Real Estate Investment" is now live</p>
-                    <span class="activity-time">5 hours ago</span>
-                </div>
-            </div>
-
-            <div class="activity-item">
-                <div class="activity-icon bg-orange">
-                    <i class="fas fa-envelope"></i>
-                </div>
-                <div class="activity-details">
-                    <h4>New message received</h4>
-                    <p>Customer inquiry about Villa Grande Estate</p>
-                    <span class="activity-time">1 day ago</span>
-                </div>
-            </div>
         </div>
     </div>
 </div>
@@ -396,63 +354,6 @@
     .action-content p {
         font-size: 13px;
         color: #7f8c8d;
-    }
-
-    /* Recent Activity */
-    .recent-activity {
-        background: white;
-        padding: 25px;
-        border-radius: 15px;
-        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
-    }
-
-    .activity-list {
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-    }
-
-    .activity-item {
-        display: flex;
-        align-items: flex-start;
-        gap: 15px;
-        padding: 15px;
-        border-radius: 10px;
-        transition: all 0.3s ease;
-    }
-
-    .activity-item:hover {
-        background: #f8f9fa;
-    }
-
-    .activity-icon {
-        width: 45px;
-        height: 45px;
-        border-radius: 10px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: white;
-        font-size: 18px;
-        flex-shrink: 0;
-    }
-
-    .activity-details h4 {
-        font-size: 15px;
-        color: #2c3e50;
-        margin-bottom: 5px;
-        font-weight: 600;
-    }
-
-    .activity-details p {
-        font-size: 14px;
-        color: #7f8c8d;
-        margin-bottom: 5px;
-    }
-
-    .activity-time {
-        font-size: 12px;
-        color: #95a5a6;
     }
 
     /* Responsive Design */

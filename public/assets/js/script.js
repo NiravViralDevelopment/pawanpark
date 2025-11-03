@@ -157,7 +157,7 @@ if (contactForm) {
         // Get form values
         const name = document.getElementById('name').value.trim();
         const email = document.getElementById('email').value.trim();
-        const phone = document.getElementById('phone').value.trim();
+        const phone = document.getElementById('phone').value.trim().replace(/\s+/g, '');
         const message = document.getElementById('message').value.trim();
         
         let isValid = true;
@@ -171,44 +171,89 @@ if (contactForm) {
             isValid = false;
         }
         
-        // Validate email
-        if (email === '') {
-            showError('email', 'Please enter your email address');
-            isValid = false;
-        } else if (!isValidEmail(email)) {
+        // Validate email (optional)
+        if (email !== '' && !isValidEmail(email)) {
             showError('email', 'Please enter a valid email address');
             isValid = false;
         }
         
-        // Validate phone
+        // Validate phone (required - Indian format)
         if (phone === '') {
             showError('phone', 'Please enter your phone number');
             isValid = false;
-        } else if (!isValidPhone(phone)) {
-            showError('phone', 'Please enter a valid phone number');
+        } else if (!isValidIndianPhone(phone)) {
+            showError('phone', 'Please enter a valid Indian phone number (10 digits starting with 6-9)');
             isValid = false;
         }
         
-        // Validate message
-        if (message === '') {
-            showError('message', 'Please enter your message');
-            isValid = false;
-        } else if (message.length < 10) {
-            showError('message', 'Message must be at least 10 characters long');
-            isValid = false;
-        }
+        // Message is optional - no validation needed
         
-        // If form is valid, show success message
+        // If form is valid, submit to server
         if (isValid) {
-            contactForm.style.display = 'none';
-            document.getElementById('form-success-message').style.display = 'block';
+            // Disable submit button
+            const submitBtn = contactForm.querySelector('button[type="submit"]');
+            const originalBtnText = submitBtn.textContent;
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Sending...';
             
-            // Reset form after 3 seconds
-            setTimeout(() => {
-                contactForm.reset();
-                contactForm.style.display = 'block';
-                document.getElementById('form-success-message').style.display = 'none';
-            }, 5000);
+            // Get CSRF token
+            const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+            
+            // Prepare form data
+            const formData = new FormData();
+            formData.append('name', name);
+            formData.append('email', email || '');
+            formData.append('phone', phone);
+            formData.append('message', message || '');
+            formData.append('_token', csrfToken);
+            
+            // Submit form via AJAX
+            fetch('/contact', {
+                method: 'POST',
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'X-CSRF-TOKEN': csrfToken
+                },
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Show success message
+                    contactForm.style.display = 'none';
+                    const successMessage = document.getElementById('form-success-message');
+                    if (successMessage) {
+                        successMessage.style.display = 'block';
+                    }
+                    
+                    // Reset form after 5 seconds
+                    setTimeout(() => {
+                        contactForm.reset();
+                        contactForm.style.display = 'block';
+                        if (successMessage) {
+                            successMessage.style.display = 'none';
+                        }
+                        submitBtn.disabled = false;
+                        submitBtn.textContent = originalBtnText;
+                        clearErrors();
+                    }, 5000);
+                } else {
+                    // Show validation errors from server
+                    if (data.errors) {
+                        Object.keys(data.errors).forEach(field => {
+                            showError(field, data.errors[field][0]);
+                        });
+                    }
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = originalBtnText;
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                showError('message', 'An error occurred. Please try again.');
+                submitBtn.disabled = false;
+                submitBtn.textContent = originalBtnText;
+            });
         }
     });
 }
@@ -240,11 +285,26 @@ function isValidEmail(email) {
     return emailRegex.test(email);
 }
 
-function isValidPhone(phone) {
-    // Remove all non-digit characters
-    const cleanPhone = phone.replace(/\D/g, '');
-    // Check if it has at least 10 digits
-    return cleanPhone.length >= 10;
+function isValidIndianPhone(phone) {
+    // Remove all spaces and non-digit characters except +
+    const cleanPhone = phone.trim().replace(/\s+/g, '');
+    
+    // Indian phone number validation:
+    // - Can start with +91, 91, or 0
+    // - Must have 10 digits
+    // - First digit (after country code) must be 6, 7, 8, or 9
+    
+    // Remove +91, 91, or 0 prefix if present
+    let digits = cleanPhone.replace(/^\+91|^91|^0/, '');
+    
+    // Check if we have exactly 10 digits
+    if (!/^\d{10}$/.test(digits)) {
+        return false;
+    }
+    
+    // Check if first digit is 6, 7, 8, or 9
+    const firstDigit = parseInt(digits[0]);
+    return firstDigit >= 6 && firstDigit <= 9;
 }
 
 // Real-time validation
@@ -267,10 +327,8 @@ if (contactForm) {
                 showError(fieldId, 'Name must be at least 2 characters long');
             } else if (fieldId === 'email' && value !== '' && !isValidEmail(value)) {
                 showError(fieldId, 'Please enter a valid email address');
-            } else if (fieldId === 'phone' && value !== '' && !isValidPhone(value)) {
-                showError(fieldId, 'Please enter a valid phone number');
-            } else if (fieldId === 'message' && value !== '' && value.length < 10) {
-                showError(fieldId, 'Message must be at least 10 characters long');
+            } else if (fieldId === 'phone' && value !== '' && !isValidIndianPhone(value)) {
+                showError(fieldId, 'Please enter a valid Indian phone number (10 digits starting with 6-9)');
             }
         });
     });
