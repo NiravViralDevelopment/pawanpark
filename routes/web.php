@@ -18,6 +18,7 @@ Route::get('/services', [PageController::class, 'services'])->name('services');
 Route::get('/project', [PageController::class, 'project'])->name('project');
 Route::get('/project/{id}', [PageController::class, 'projectDetail'])->name('project.detail');
 Route::get('/blog', [PageController::class, 'blog'])->name('blog');
+Route::get('/blog/{id}', [PageController::class, 'blogDetail'])->name('blog.detail');
 Route::get('/contact', [PageController::class, 'contact'])->name('contact');
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 
@@ -49,6 +50,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
         
         // Testimonials CRUD
         Route::resource('testimonials', \App\Http\Controllers\Admin\TestimonialController::class);
+        
+        // Blogs CRUD
+        Route::resource('blogs', \App\Http\Controllers\Admin\BlogController::class);
         
         // Contacts Management
         Route::get('/contacts', [\App\Http\Controllers\Admin\ContactController::class, 'index'])->name('contacts.index');

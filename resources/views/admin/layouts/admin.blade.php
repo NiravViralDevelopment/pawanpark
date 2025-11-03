@@ -331,7 +331,7 @@
                 </a>
             </li>
             <li>
-                <a href="#" class="{{ request()->routeIs('admin.blogs*') ? 'active' : '' }}">
+                <a href="{{ route('admin.blogs.index') }}" class="{{ request()->routeIs('admin.blogs*') ? 'active' : '' }}">
                     <i class="fas fa-blog"></i>
                     <span>Blogs</span>
                 </a>

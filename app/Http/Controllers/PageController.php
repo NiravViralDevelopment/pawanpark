@@ -67,7 +67,24 @@ class PageController extends Controller
 
     public function blog()
     {
-        return view('blog');
+        // Get all blogs paginated
+        $blogs = \App\Models\Blog::latest('date')->paginate(9);
+        
+        return view('blog', compact('blogs'));
+    }
+
+    public function blogDetail($id)
+    {
+        // Get single blog post
+        $blog = \App\Models\Blog::findOrFail($id);
+        
+        // Get related blogs (latest 3, excluding current)
+        $relatedBlogs = \App\Models\Blog::where('id', '!=', $id)
+            ->latest('date')
+            ->take(3)
+            ->get();
+        
+        return view('blog-detail', compact('blog', 'relatedBlogs'));
     }
 
     public function contact()
