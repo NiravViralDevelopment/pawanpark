@@ -319,6 +319,12 @@
                 </a>
             </li>
             <li>
+                <a href="{{ route('admin.teams.index') }}" class="{{ request()->routeIs('admin.teams*') ? 'active' : '' }}">
+                    <i class="fas fa-user-tie"></i>
+                    <span>Team Members</span>
+                </a>
+            </li>
+            <li>
                 <a href="#" class="{{ request()->routeIs('admin.blogs*') ? 'active' : '' }}">
                     <i class="fas fa-blog"></i>
                     <span>Blogs</span>

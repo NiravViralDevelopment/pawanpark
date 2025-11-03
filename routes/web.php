@@ -41,5 +41,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
         
         // Banners CRUD
         Route::resource('banners', \App\Http\Controllers\Admin\BannerController::class);
+        
+        // Teams CRUD
+        Route::resource('teams', \App\Http\Controllers\Admin\TeamController::class);
     });
 });
