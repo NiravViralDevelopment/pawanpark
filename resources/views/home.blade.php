@@ -91,130 +91,117 @@
             <h2 class="section-title">Exclusive Villa Collection</h2>
             <div class="title-divider"></div>
         </div>
-        <div class="villas-grid">
-            <div class="villa-card">
-                <div class="villa-image">
-                    <img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=800&q=80" alt="Modern Villa">
-                    <div class="villa-badge">Featured</div>
-                </div>
-                <div class="villa-info">
-                    <h3>Contemporary Beachfront Villa</h3>
-                    <p class="villa-location"><i class="fas fa-map-marker-alt"></i> Malibu, California</p>
-                    <p class="villa-description">Stunning modern architecture with panoramic ocean views and private beach access.</p>
-                    <div class="villa-features">
-                        <span><i class="fas fa-bed"></i> 5 Beds</span>
-                        <span><i class="fas fa-bath"></i> 6 Baths</span>
-                        <span><i class="fas fa-ruler-combined"></i> 8,500 sqft</span>
+        @if($featuredProjects && $featuredProjects->count() > 0)
+            <div class="villas-grid">
+                @foreach($featuredProjects as $index => $project)
+                    <div class="villa-card">
+                        <div class="villa-image">
+                            @if($project->images && is_array($project->images) && count($project->images) > 0)
+                                <img src="{{ asset($project->images[0]) }}" alt="{{ $project->title }}">
+                            @else
+                                <img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=800&q=80" alt="{{ $project->title }}">
+                            @endif
+                            @if($project->is_featured)
+                                <div class="villa-badge">Featured</div>
+                            @elseif($project->is_ongoing)
+                                <div class="villa-badge">Ongoing</div>
+                            @elseif($project->is_completed)
+                                <div class="villa-badge">Completed</div>
+                            @endif
+                        </div>
+                        <div class="villa-info">
+                            <h3>{{ $project->title }}</h3>
+                            <p class="villa-location"><i class="fas fa-map-marker-alt"></i> {{ $project->location }}</p>
+                            <p class="villa-description">{{ Str::limit($project->description, 100) }}</p>
+                            <div class="villa-features">
+                                @if($project->bedrooms)
+                                    <span><i class="fas fa-bed"></i> {{ $project->bedrooms }} Beds</span>
+                                @endif
+                                @if($project->bathrooms)
+                                    <span><i class="fas fa-bath"></i> {{ $project->bathrooms }} Baths</span>
+                                @endif
+                                @if($project->sqft)
+                                    <span><i class="fas fa-ruler-combined"></i> {{ number_format($project->sqft) }} sqft</span>
+                                @endif
+                            </div>
+                            <div class="villa-footer">
+                                @if($project->property_type)
+                                    <span class="villa-type">{{ $project->property_type }}</span>
+                                @else
+                                    <span class="villa-price">Contact for Price</span>
+                                @endif
+                                <a href="{{ route('project.detail', $project->id) }}" class="btn btn-secondary">View Details</a>
+                            </div>
+                        </div>
                     </div>
-                    <div class="villa-footer">
-                        <span class="villa-price">$12,500,000</span>
-                        <a href="{{ route('project.detail', 1) }}" class="btn btn-secondary">View Details</a>
-                    </div>
-                </div>
+                @endforeach
             </div>
+        @else
+            <div class="villas-grid">
+                <div class="villa-card">
+                    <div class="villa-image">
+                        <img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=800&q=80" alt="Modern Villa">
+                        <div class="villa-badge">Featured</div>
+                    </div>
+                    <div class="villa-info">
+                        <h3>Contemporary Beachfront Villa</h3>
+                        <p class="villa-location"><i class="fas fa-map-marker-alt"></i> Malibu, California</p>
+                        <p class="villa-description">Stunning modern architecture with panoramic ocean views and private beach access.</p>
+                        <div class="villa-features">
+                            <span><i class="fas fa-bed"></i> 5 Beds</span>
+                            <span><i class="fas fa-bath"></i> 6 Baths</span>
+                            <span><i class="fas fa-ruler-combined"></i> 8,500 sqft</span>
+                        </div>
+                        <div class="villa-footer">
+                            <span class="villa-price">$12,500,000</span>
+                            <a href="#" class="btn btn-secondary">View Details</a>
+                        </div>
+                    </div>
+                </div>
 
-            <div class="villa-card">
-                <div class="villa-image">
-                    <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&q=80" alt="Luxury Villa">
-                    <div class="villa-badge">New</div>
-                </div>
-                <div class="villa-info">
-                    <h3>Mediterranean Paradise</h3>
-                    <p class="villa-location"><i class="fas fa-map-marker-alt"></i> French Riviera, France</p>
-                    <p class="villa-description">Elegant villa with infinity pool overlooking the Mediterranean Sea.</p>
-                    <div class="villa-features">
-                        <span><i class="fas fa-bed"></i> 6 Beds</span>
-                        <span><i class="fas fa-bath"></i> 7 Baths</span>
-                        <span><i class="fas fa-ruler-combined"></i> 9,200 sqft</span>
+                <div class="villa-card">
+                    <div class="villa-image">
+                        <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&q=80" alt="Luxury Villa">
+                        <div class="villa-badge">New</div>
                     </div>
-                    <div class="villa-footer">
-                        <span class="villa-price">€15,800,000</span>
-                        <a href="{{ route('project.detail', 2) }}" class="btn btn-secondary">View Details</a>
+                    <div class="villa-info">
+                        <h3>Mediterranean Paradise</h3>
+                        <p class="villa-location"><i class="fas fa-map-marker-alt"></i> French Riviera, France</p>
+                        <p class="villa-description">Elegant villa with infinity pool overlooking the Mediterranean Sea.</p>
+                        <div class="villa-features">
+                            <span><i class="fas fa-bed"></i> 6 Beds</span>
+                            <span><i class="fas fa-bath"></i> 7 Baths</span>
+                            <span><i class="fas fa-ruler-combined"></i> 9,200 sqft</span>
+                        </div>
+                        <div class="villa-footer">
+                            <span class="villa-price">€15,800,000</span>
+                            <a href="#" class="btn btn-secondary">View Details</a>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="villa-card">
-                <div class="villa-image">
-                    <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80" alt="Mountain Villa">
-                    <div class="villa-badge">Exclusive</div>
-                </div>
-                <div class="villa-info">
-                    <h3>Alpine Luxury Retreat</h3>
-                    <p class="villa-location"><i class="fas fa-map-marker-alt"></i> Aspen, Colorado</p>
-                    <p class="villa-description">Mountain masterpiece with ski-in/ski-out access and breathtaking views.</p>
-                    <div class="villa-features">
-                        <span><i class="fas fa-bed"></i> 7 Beds</span>
-                        <span><i class="fas fa-bath"></i> 8 Baths</span>
-                        <span><i class="fas fa-ruler-combined"></i> 12,000 sqft</span>
+                <div class="villa-card">
+                    <div class="villa-image">
+                        <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80" alt="Mountain Villa">
+                        <div class="villa-badge">Exclusive</div>
                     </div>
-                    <div class="villa-footer">
-                        <span class="villa-price">$18,900,000</span>
-                        <a href="{{ route('project.detail', 3) }}" class="btn btn-secondary">View Details</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="villa-card">
-                <div class="villa-image">
-                    <img src="https://images.unsplash.com/photo-1600607687644-c7171b42498f?w=800&q=80" alt="Urban Villa">
-                </div>
-                <div class="villa-info">
-                    <h3>Urban Oasis Mansion</h3>
-                    <p class="villa-location"><i class="fas fa-map-marker-alt"></i> Beverly Hills, California</p>
-                    <p class="villa-description">Contemporary estate with smart home technology and resort-style amenities.</p>
-                    <div class="villa-features">
-                        <span><i class="fas fa-bed"></i> 8 Beds</span>
-                        <span><i class="fas fa-bath"></i> 10 Baths</span>
-                        <span><i class="fas fa-ruler-combined"></i> 15,000 sqft</span>
-                    </div>
-                    <div class="villa-footer">
-                        <span class="villa-price">$28,500,000</span>
-                        <a href="{{ route('project.detail', 4) }}" class="btn btn-secondary">View Details</a>
+                    <div class="villa-info">
+                        <h3>Alpine Luxury Retreat</h3>
+                        <p class="villa-location"><i class="fas fa-map-marker-alt"></i> Aspen, Colorado</p>
+                        <p class="villa-description">Mountain masterpiece with ski-in/ski-out access and breathtaking views.</p>
+                        <div class="villa-features">
+                            <span><i class="fas fa-bed"></i> 7 Beds</span>
+                            <span><i class="fas fa-bath"></i> 8 Baths</span>
+                            <span><i class="fas fa-ruler-combined"></i> 12,000 sqft</span>
+                        </div>
+                        <div class="villa-footer">
+                            <span class="villa-price">$18,900,000</span>
+                            <a href="#" class="btn btn-secondary">View Details</a>
+                        </div>
                     </div>
                 </div>
             </div>
-
-            <div class="villa-card">
-                <div class="villa-image">
-                    <img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=800&q=80" alt="Coastal Villa">
-                </div>
-                <div class="villa-info">
-                    <h3>Tropical Island Estate</h3>
-                    <p class="villa-location"><i class="fas fa-map-marker-alt"></i> Maui, Hawaii</p>
-                    <p class="villa-description">Private beachfront estate surrounded by lush tropical gardens.</p>
-                    <div class="villa-features">
-                        <span><i class="fas fa-bed"></i> 6 Beds</span>
-                        <span><i class="fas fa-bath"></i> 7 Baths</span>
-                        <span><i class="fas fa-ruler-combined"></i> 10,500 sqft</span>
-                    </div>
-                    <div class="villa-footer">
-                        <span class="villa-price">$22,000,000</span>
-                        <a href="{{ route('project.detail', 5) }}" class="btn btn-secondary">View Details</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="villa-card">
-                <div class="villa-image">
-                    <img src="https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=800&q=80" alt="Modern Villa">
-                </div>
-                <div class="villa-info">
-                    <h3>Desert Modern Masterpiece</h3>
-                    <p class="villa-location"><i class="fas fa-map-marker-alt"></i> Palm Springs, California</p>
-                    <p class="villa-description">Mid-century modern inspired villa with desert landscape integration.</p>
-                    <div class="villa-features">
-                        <span><i class="fas fa-bed"></i> 4 Beds</span>
-                        <span><i class="fas fa-bath"></i> 5 Baths</span>
-                        <span><i class="fas fa-ruler-combined"></i> 6,800 sqft</span>
-                    </div>
-                    <div class="villa-footer">
-                        <span class="villa-price">$9,750,000</span>
-                        <a href="{{ route('project.detail', 6) }}" class="btn btn-secondary">View Details</a>
-                    </div>
-                </div>
-            </div>
-        </div>
+        @endif
     </div>
 </section>
 
@@ -315,5 +302,50 @@
         @endif
     </div>
 </section>
+@endsection
+
+@section('extra_css')
+<style>
+.featured-section .villa-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    padding-top: 20px;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.featured-section .villa-type {
+    font-size: 13px;
+    color: #c49b63;
+    font-weight: 600;
+    padding: 6px 16px;
+    background: #faf6f0;
+    border: 1px solid #e5d4b8;
+    border-radius: 20px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    text-transform: capitalize;
+}
+
+@media (max-width: 768px) {
+    .featured-section .villa-footer {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .featured-section .villa-type {
+        text-align: center;
+        justify-content: center;
+    }
+    
+    .featured-section .villa-footer .btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+</style>
 @endsection
 

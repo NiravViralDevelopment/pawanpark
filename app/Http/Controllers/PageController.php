@@ -14,10 +14,8 @@ class PageController extends Controller
             ->orderBy('order')
             ->get();
         
-        // Get featured projects for home page
-        $featuredProjects = Project::where('is_featured', true)
-            ->latest()
-            ->take(6)
+        // Get all projects for home page (latest first)
+        $featuredProjects = Project::latest()
             ->get();
         
         // Get testimonials for home page (latest 6)

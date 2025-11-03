@@ -181,13 +181,28 @@
     color: #666;
 }
 
+.projects-section .villa-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    padding-top: 20px;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
 .villa-type {
     font-size: 13px;
-    color: #666;
-    font-weight: 500;
-    padding: 4px 12px;
-    background: #f0f0f0;
+    color: #c49b63;
+    font-weight: 600;
+    padding: 6px 16px;
+    background: #faf6f0;
+    border: 1px solid #e5d4b8;
     border-radius: 20px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    text-transform: capitalize;
 }
 
 .empty-state {
@@ -210,6 +225,23 @@
 .empty-state p {
     font-size: 16px;
     color: #999;
+}
+
+@media (max-width: 768px) {
+    .projects-section .villa-footer {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .villa-type {
+        text-align: center;
+        justify-content: center;
+    }
+    
+    .projects-section .villa-footer .btn {
+        width: 100%;
+        justify-content: center;
+    }
 }
 </style>
 @endsection
