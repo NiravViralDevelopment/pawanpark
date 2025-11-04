@@ -480,18 +480,20 @@ function displayContactErrors(errors) {
                     <h3>Property Agent</h3>
                     <div class="agent-info">
                         <div class="agent-avatar">
-                            <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200&q=80" alt="Agent">
+                            <img src="{{ asset('assets/images/sankarbhai.jpg') }}" alt="Agent">
+
+                            <!-- <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200&q=80" alt="Agent"> -->
                         </div>
                         <div class="agent-details">
-                            <h4>John Anderson</h4>
+                            <h4>Shankar Bhai</h4>
                             <p class="agent-title">Senior Property Consultant</p>
                             <div class="agent-contact">
-                                <p><i class="fas fa-phone"></i> +1 (310) 555-0198</p>
+                                <p><i class="fas fa-phone"></i> +91 9510312047</p>
                                 <p><i class="fas fa-envelope"></i> john@luxuryvillas.com</p>
                             </div>
                             <div class="agent-buttons">
                                 <a href="{{ route('contact') }}" class="btn btn-outline">Contact Agent</a>
-                                <a href="https://wa.me/13105550198?text=Hi, I'm interested in {{ $project->title }}" target="_blank" class="btn btn-whatsapp">
+                                <a href="https://wa.me/9510312047?text=Hi, I'm interested in {{ $project->title }}" target="_blank" class="btn btn-whatsapp">
                                     <i class="fab fa-whatsapp"></i> WhatsApp
                                 </a>
                             </div>

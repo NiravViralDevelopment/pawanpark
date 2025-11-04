@@ -12,6 +12,7 @@ class Contact extends Model
         'phone',
         'message',
         'is_read',
+        'follow_up_reason',
     ];
 
     protected $casts = [

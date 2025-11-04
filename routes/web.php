@@ -62,7 +62,10 @@ Route::prefix('admin')->name('admin.')->group(function () {
         
         // Contacts Management
         Route::get('/contacts', [\App\Http\Controllers\Admin\ContactController::class, 'index'])->name('contacts.index');
+        Route::get('/contacts/export/csv', [\App\Http\Controllers\Admin\ContactController::class, 'export'])->name('contacts.export');
         Route::get('/contacts/{id}', [\App\Http\Controllers\Admin\ContactController::class, 'show'])->name('contacts.show');
+        Route::get('/contacts/{id}/edit', [\App\Http\Controllers\Admin\ContactController::class, 'edit'])->name('contacts.edit');
+        Route::put('/contacts/{id}', [\App\Http\Controllers\Admin\ContactController::class, 'update'])->name('contacts.update');
         Route::post('/contacts/{id}/toggle-read', [\App\Http\Controllers\Admin\ContactController::class, 'toggleRead'])->name('contacts.toggle-read');
         Route::delete('/contacts/{id}', [\App\Http\Controllers\Admin\ContactController::class, 'destroy'])->name('contacts.destroy');
     });

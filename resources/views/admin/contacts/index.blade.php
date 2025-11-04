@@ -12,6 +12,67 @@
         </div>
     </div>
 
+    <!-- Search and Filter Section -->
+    <div class="card search-card">
+        <div class="card-body">
+            <form action="{{ route('admin.contacts.index') }}" method="GET" id="searchForm">
+                <div class="search-header">
+                    <h3><i class="fas fa-search"></i> Search & Filter</h3>
+                    <div class="search-actions">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-search"></i> Search
+                        </button>
+                        <a href="{{ route('admin.contacts.index') }}" class="btn btn-secondary">
+                            <i class="fas fa-redo"></i> Reset
+                        </a>
+                        <button type="button" class="btn btn-success" onclick="exportContacts()">
+                            <i class="fas fa-download"></i> Export CSV
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="search-fields">
+                    <div class="search-row">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" name="name" id="name" class="form-control" 
+                                   value="{{ request('name') }}" placeholder="Search by name...">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" name="email" id="email" class="form-control" 
+                                   value="{{ request('email') }}" placeholder="Search by email...">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="phone">Phone</label>
+                            <input type="text" name="phone" id="phone" class="form-control" 
+                                   value="{{ request('phone') }}" placeholder="Search by phone...">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="status">Status</label>
+                            <select name="status" id="status" class="form-control">
+                                <option value="">All Status</option>
+                                <option value="read" {{ request('status') == 'read' ? 'selected' : '' }}>Read</option>
+                                <option value="unread" {{ request('status') == 'unread' ? 'selected' : '' }}>Unread</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="search-row">
+                        <div class="form-group full-width">
+                            <label for="message">Message Content</label>
+                            <input type="text" name="message" id="message" class="form-control" 
+                                   value="{{ request('message') }}" placeholder="Search in message content...">
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <!-- Contacts Table -->
     <div class="card">
         <div class="card-body">
@@ -58,6 +119,9 @@
                                         <div class="action-buttons">
                                             <a href="{{ route('admin.contacts.show', $contact->id) }}" class="btn-icon btn-view" title="View">
                                                 <i class="fas fa-eye"></i>
+                                            </a>
+                                            <a href="{{ route('admin.contacts.edit', $contact->id) }}" class="btn-icon btn-edit" title="Add/Edit Follow-up">
+                                                <i class="fas fa-edit"></i>
                                             </a>
                                             <form action="{{ route('admin.contacts.toggle-read', $contact->id) }}" method="POST" class="d-inline">
                                                 @csrf
@@ -157,10 +221,125 @@
         background: white;
         border-radius: 8px;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        margin-bottom: 20px;
     }
 
     .card-body {
         padding: 0;
+    }
+
+    /* Search Card Styles */
+    .search-card .card-body {
+        padding: 25px;
+    }
+
+    .search-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+
+    .search-header h3 {
+        margin: 0;
+        font-size: 18px;
+        font-weight: 600;
+        color: #333;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .search-actions {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+
+    .btn {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 6px;
+        font-size: 14px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        text-decoration: none;
+        white-space: nowrap;
+    }
+
+    .btn-primary {
+        background: #007bff;
+        color: white;
+    }
+
+    .btn-primary:hover {
+        background: #0056b3;
+    }
+
+    .btn-secondary {
+        background: #6c757d;
+        color: white;
+    }
+
+    .btn-secondary:hover {
+        background: #545b62;
+    }
+
+    .btn-success {
+        background: #28a745;
+        color: white;
+    }
+
+    .btn-success:hover {
+        background: #218838;
+    }
+
+    .search-fields {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .search-row {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 15px;
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .form-group.full-width {
+        grid-column: 1 / -1;
+    }
+
+    .form-group label {
+        font-size: 14px;
+        font-weight: 500;
+        color: #333;
+        margin-bottom: 6px;
+    }
+
+    .form-control {
+        padding: 10px 14px;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        font-size: 14px;
+        transition: all 0.2s;
+    }
+
+    .form-control:focus {
+        outline: none;
+        border-color: #007bff;
+        box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
     }
 
     .table-responsive {
@@ -255,6 +434,14 @@
 
     .btn-view:hover {
         background: #e7f3ff;
+    }
+
+    .btn-edit {
+        color: #17a2b8;
+    }
+
+    .btn-edit:hover {
+        background: #d1ecf1;
     }
 
     .btn-toggle {
@@ -355,6 +542,23 @@
     }
 
     @media (max-width: 768px) {
+        .search-header {
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        .search-actions {
+            width: 100%;
+        }
+
+        .search-actions .btn {
+            flex: 1;
+        }
+
+        .search-row {
+            grid-template-columns: 1fr;
+        }
+
         .table {
             font-size: 12px;
         }
@@ -382,5 +586,25 @@
         }
     }
 </style>
+@endsection
+
+@section('extra_js')
+<script>
+    function exportContacts() {
+        // Get the form data
+        const form = document.getElementById('searchForm');
+        const formData = new FormData(form);
+        
+        // Build query string
+        const params = new URLSearchParams(formData);
+        const queryString = params.toString();
+        
+        // Construct export URL with filters
+        const exportUrl = '{{ route("admin.contacts.export") }}' + (queryString ? '?' + queryString : '');
+        
+        // Redirect to export URL
+        window.location.href = exportUrl;
+    }
+</script>
 @endsection
 

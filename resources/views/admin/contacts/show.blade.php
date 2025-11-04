@@ -13,6 +13,10 @@
             </a>
         </div>
         <div class="header-right">
+            <a href="{{ route('admin.contacts.edit', $contact->id) }}" class="btn btn-info">
+                <i class="fas fa-edit"></i>
+                {{ $contact->follow_up_reason ? 'Edit Follow-up' : 'Add Follow-up' }}
+            </a>
             <form action="{{ route('admin.contacts.toggle-read', $contact->id) }}" method="POST" class="d-inline">
                 @csrf
                 <button type="submit" class="btn {{ $contact->is_read ? 'btn-warning' : 'btn-success' }}">
@@ -71,6 +75,30 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Follow-up Reason -->
+            @if($contact->follow_up_reason)
+            <div class="card follow-up-card">
+                <div class="card-header">
+                    <h3><i class="fas fa-clipboard-check"></i> Follow-up Reason / Notes</h3>
+                </div>
+                <div class="card-body">
+                    <div class="follow-up-text">
+                        {{ $contact->follow_up_reason }}
+                    </div>
+                </div>
+            </div>
+            @else
+            <div class="card empty-follow-up">
+                <div class="card-body text-center">
+                    <i class="fas fa-clipboard-list empty-icon"></i>
+                    <p class="empty-text">No follow-up reason added yet</p>
+                    <a href="{{ route('admin.contacts.edit', $contact->id) }}" class="btn btn-info">
+                        <i class="fas fa-plus"></i> Add Follow-up Reason
+                    </a>
+                </div>
+            </div>
+            @endif
         </div>
 
         <!-- Right Column -->
@@ -241,6 +269,17 @@
         box-shadow: 0 4px 12px rgba(220, 53, 69, 0.3);
     }
 
+    .btn-info {
+        background: #17a2b8;
+        color: white;
+    }
+
+    .btn-info:hover {
+        background: #138496;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(23, 162, 184, 0.3);
+    }
+
     .card {
         background: white;
         border-radius: 8px;
@@ -332,6 +371,40 @@
         line-height: 1.8;
         font-size: 15px;
         white-space: pre-wrap;
+    }
+
+    .follow-up-card {
+        border-left: 4px solid #17a2b8;
+    }
+
+    .follow-up-text {
+        color: #555;
+        line-height: 1.8;
+        font-size: 15px;
+        white-space: pre-wrap;
+        background: #f8f9fa;
+        padding: 15px;
+        border-radius: 6px;
+    }
+
+    .empty-follow-up .card-body {
+        padding: 40px 25px;
+    }
+
+    .empty-icon {
+        font-size: 48px;
+        color: #ddd;
+        margin-bottom: 15px;
+    }
+
+    .empty-text {
+        color: #999;
+        margin-bottom: 20px;
+        font-size: 15px;
+    }
+
+    .text-center {
+        text-align: center;
     }
 
     .info-list {
