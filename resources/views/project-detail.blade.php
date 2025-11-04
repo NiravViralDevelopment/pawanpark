@@ -399,52 +399,19 @@ function displayContactErrors(errors) {
                 @endif
 
                 <!-- Video -->
-                @if($project->video)
+                @if(!empty($project->video))
                     <div class="detail-card">
                         <h2><i class="fas fa-video"></i> Project Video</h2>
-                        <div class="video-container">
-                            @if(filter_var($project->video, FILTER_VALIDATE_URL))
-                                {{-- External video URL (YouTube, Vimeo, etc.) --}}
-                                @if(str_contains($project->video, 'youtube.com') || str_contains($project->video, 'youtu.be'))
-                                    @php
-                                        $videoId = '';
-                                        if (str_contains($project->video, 'youtube.com')) {
-                                            parse_str(parse_url($project->video, PHP_URL_QUERY), $params);
-                                            $videoId = $params['v'] ?? '';
-                                        } elseif (str_contains($project->video, 'youtu.be')) {
-                                            $videoId = basename(parse_url($project->video, PHP_URL_PATH));
-                                        }
-                                    @endphp
-                                    <div class="video-responsive">
-                                        <iframe 
-                                            src="https://www.youtube.com/embed/{{ $videoId }}" 
-                                            frameborder="0" 
-                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                                            allowfullscreen>
-                                        </iframe>
-                                    </div>
-                                @else
-                                    {{-- Other external video URLs --}}
-                                    <div class="video-responsive">
-                                        <iframe 
-                                            src="{{ $project->video }}" 
-                                            frameborder="0" 
-                                            allowfullscreen>
-                                        </iframe>
-                                    </div>
-                                @endif
-                            @else
-                                {{-- Uploaded video file --}}
-                                <video controls class="project-video" controlsList="nodownload">
-                                    <source src="{{ asset($project->video) }}" type="video/mp4">
-                                    <source src="{{ asset($project->video) }}" type="video/webm">
-                                    <source src="{{ asset($project->video) }}" type="video/ogg">
-                                    Your browser does not support the video tag.
-                                </video>
-                            @endif
-                        </div>
+                        @php $videoFilename = basename($project->video); @endphp
+                        <video controls autoplay muted class="project-video">
+                            <source src="{{ asset('projects/videos/' . $videoFilename) }}" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
                     </div>
                 @endif
+
+
+                
             </div>
 
             <!-- Sidebar -->
