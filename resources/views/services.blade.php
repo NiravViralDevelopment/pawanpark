@@ -97,3 +97,193 @@
 </section>
 @endsection
 
+@section('extra_css')
+<style>
+/* Mobile Responsive Styles for Services Page */
+@media (max-width: 768px) {
+    /* Services Introduction Section */
+    .services-intro-section {
+        padding: 50px 0 30px !important;
+    }
+
+    .services-intro-text {
+        font-size: 15px !important;
+        padding: 0 15px;
+    }
+
+    .section-header {
+        margin-bottom: 40px !important;
+    }
+
+    .section-title {
+        font-size: 28px !important;
+        margin: 12px 0 15px !important;
+    }
+
+    .section-subtitle {
+        font-size: 12px !important;
+    }
+
+    /* Main Services Section */
+    .main-services-section {
+        padding: 50px 0 !important;
+    }
+
+    .services-grid-large {
+        grid-template-columns: 1fr !important;
+        gap: 30px !important;
+    }
+
+    .service-card-large {
+        margin-bottom: 0;
+    }
+
+    .service-image {
+        height: 250px !important;
+    }
+
+    .service-content {
+        padding: 25px 20px !important;
+    }
+
+    .service-content h3 {
+        font-size: 22px !important;
+        margin-bottom: 12px !important;
+    }
+
+    .service-content p {
+        font-size: 14px !important;
+        margin-bottom: 20px !important;
+        line-height: 1.7;
+    }
+
+    .service-content .btn {
+        padding: 12px 24px;
+        font-size: 14px;
+    }
+
+    /* CTA Section */
+    .cta-section {
+        padding: 60px 0 !important;
+    }
+
+    .cta-content h2 {
+        font-size: 28px !important;
+        margin-bottom: 15px !important;
+    }
+
+    .cta-content p {
+        font-size: 16px !important;
+        margin-bottom: 30px !important;
+    }
+
+    .cta-buttons {
+        flex-direction: column !important;
+        gap: 15px !important;
+    }
+
+    .cta-buttons .btn {
+        width: 100%;
+        padding: 14px 30px;
+    }
+
+    /* Empty State */
+    .empty-state {
+        padding: 40px 20px !important;
+    }
+
+    .empty-state i {
+        font-size: 50px !important;
+        margin-bottom: 15px !important;
+    }
+
+    .empty-state h3 {
+        font-size: 20px !important;
+        margin-bottom: 10px !important;
+    }
+
+    .empty-state p {
+        font-size: 14px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .services-intro-section {
+        padding: 40px 0 20px !important;
+    }
+
+    .services-intro-text {
+        font-size: 14px !important;
+    }
+
+    .section-title {
+        font-size: 24px !important;
+    }
+
+    .main-services-section {
+        padding: 40px 0 !important;
+    }
+
+    .services-grid-large {
+        gap: 25px !important;
+    }
+
+    .service-image {
+        height: 220px !important;
+    }
+
+    .service-content {
+        padding: 20px 15px !important;
+    }
+
+    .service-content h3 {
+        font-size: 20px !important;
+    }
+
+    .service-content p {
+        font-size: 13px !important;
+    }
+
+    .cta-section {
+        padding: 50px 0 !important;
+    }
+
+    .cta-content h2 {
+        font-size: 24px !important;
+    }
+
+    .cta-content p {
+        font-size: 15px !important;
+    }
+
+    .empty-state {
+        padding: 30px 15px !important;
+    }
+
+    .empty-state i {
+        font-size: 40px !important;
+    }
+
+    .empty-state h3 {
+        font-size: 18px !important;
+    }
+
+    .empty-state p {
+        font-size: 13px !important;
+    }
+}
+
+/* Tablet adjustments */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .services-grid-large {
+        grid-template-columns: 1fr !important;
+        gap: 35px !important;
+    }
+
+    .service-image {
+        height: 280px !important;
+    }
+}
+</style>
+@endsection
+

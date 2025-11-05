@@ -165,3 +165,236 @@
 </section>
 @endsection
 
+@section('extra_css')
+<style>
+/* Mobile Responsive Styles for About Page */
+@media (max-width: 768px) {
+    /* About Introduction Section */
+    .about-intro-section {
+        padding: 50px 0;
+    }
+
+    .about-intro-content {
+        grid-template-columns: 1fr !important;
+        gap: 30px !important;
+    }
+
+    .about-intro-text {
+        order: 2;
+    }
+
+    .about-intro-image {
+        order: 1;
+        height: 300px !important;
+    }
+
+    .about-intro-text .section-title {
+        font-size: 28px !important;
+        margin: 10px 0 15px !important;
+    }
+
+    .about-intro-text p {
+        font-size: 15px !important;
+        margin-bottom: 15px !important;
+    }
+
+    /* Mission & Vision Section */
+    .mission-vision-section {
+        padding: 50px 0;
+    }
+
+    .mission-vision-grid {
+        grid-template-columns: 1fr !important;
+        gap: 25px !important;
+    }
+
+    .mission-card {
+        padding: 30px 20px !important;
+    }
+
+    .mission-icon {
+        width: 70px !important;
+        height: 70px !important;
+        font-size: 30px !important;
+        margin-bottom: 20px !important;
+    }
+
+    .mission-card h3 {
+        font-size: 20px !important;
+        margin-bottom: 12px !important;
+    }
+
+    .mission-card p {
+        font-size: 14px !important;
+    }
+
+    /* Statistics Section */
+    .stats-section {
+        padding: 50px 0;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr !important;
+        gap: 25px !important;
+    }
+
+    .stat-item {
+        text-align: center;
+    }
+
+    .stat-number {
+        font-size: 36px !important;
+    }
+
+    .stat-label {
+        font-size: 14px !important;
+    }
+
+    /* Team Section */
+    .team-section {
+        padding: 50px 0;
+    }
+
+    .team-grid {
+        grid-template-columns: 1fr !important;
+        gap: 25px !important;
+    }
+
+    .team-member {
+        max-width: 100%;
+    }
+
+    .team-image {
+        height: 350px !important;
+    }
+
+    .team-info {
+        padding: 20px !important;
+    }
+
+    .team-info h4 {
+        font-size: 18px !important;
+    }
+
+    .team-info p {
+        font-size: 14px !important;
+    }
+
+    /* CTA Section */
+    .cta-section {
+        padding: 60px 0 !important;
+    }
+
+    .cta-content h2 {
+        font-size: 28px !important;
+        margin-bottom: 15px !important;
+    }
+
+    .cta-content p {
+        font-size: 16px !important;
+        margin-bottom: 30px !important;
+    }
+
+    .cta-buttons {
+        flex-direction: column !important;
+        gap: 15px !important;
+    }
+
+    .cta-buttons .btn {
+        width: 100%;
+        padding: 14px 30px;
+    }
+
+    /* Section Header */
+    .section-header {
+        margin-bottom: 40px !important;
+    }
+
+    .section-title {
+        font-size: 28px !important;
+        margin: 12px 0 15px !important;
+    }
+
+    .section-subtitle {
+        font-size: 12px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .about-intro-section {
+        padding: 40px 0;
+    }
+
+    .about-intro-image {
+        height: 250px !important;
+    }
+
+    .about-intro-text .section-title {
+        font-size: 24px !important;
+    }
+
+    .about-intro-text p {
+        font-size: 14px !important;
+    }
+
+    .mission-vision-section {
+        padding: 40px 0;
+    }
+
+    .mission-card {
+        padding: 25px 15px !important;
+    }
+
+    .mission-icon {
+        width: 60px !important;
+        height: 60px !important;
+        font-size: 24px !important;
+    }
+
+    .mission-card h3 {
+        font-size: 18px !important;
+    }
+
+    .mission-card p {
+        font-size: 13px !important;
+    }
+
+    .stats-section {
+        padding: 40px 0;
+    }
+
+    .stat-number {
+        font-size: 32px !important;
+    }
+
+    .stat-label {
+        font-size: 13px !important;
+    }
+
+    .team-section {
+        padding: 40px 0;
+    }
+
+    .team-image {
+        height: 300px !important;
+    }
+
+    .cta-section {
+        padding: 50px 0 !important;
+    }
+
+    .cta-content h2 {
+        font-size: 24px !important;
+    }
+
+    .cta-content p {
+        font-size: 15px !important;
+    }
+
+    .section-title {
+        font-size: 24px !important;
+    }
+}
+</style>
+@endsection
+
