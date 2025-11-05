@@ -456,7 +456,7 @@ function displayContactErrors(errors) {
                             <p class="agent-title">Senior Property Consultant</p>
                             <div class="agent-contact">
                                 <p><i class="fas fa-phone"></i> +91 9510312047</p>
-                                <p><i class="fas fa-envelope"></i> john@luxuryvillas.com</p>
+                                <p><i class="fas fa-envelope"></i>gurukrupamarketing@gmail.com</p>
                             </div>
                             <div class="agent-buttons">
                                 <a href="{{ route('contact') }}" class="btn btn-outline">Contact Agent</a>

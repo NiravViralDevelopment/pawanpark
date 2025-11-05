@@ -94,9 +94,9 @@
                 <div class="footer-column">
                     <h3>Contact Info</h3>
                     <ul class="contact-info">
-                        <li><i class="fas fa-map-marker-alt"></i> 123 Luxury Avenue, Beverly Hills, CA 90210</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Govindpura Road, Bhaliya Vaga, Jarod, Gujarat 391510</li>
                         <li><i class="fas fa-phone"></i> +91 9510312047</li>
-                        <li><i class="fas fa-envelope"></i> info@luxuryvillas.com</li>
+                        <li><i class="fas fa-envelope"></i> gurukrupamarketing@gmail.com</li>
                         <li><i class="fas fa-clock"></i> Mon - Sun: 9:00 AM - 6:00 PM</li>
                     </ul>
                 </div>

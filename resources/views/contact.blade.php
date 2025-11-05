@@ -52,7 +52,7 @@
                         </div>
                         <div class="contact-details">
                             <h4>Visit Our Office</h4>
-                            <p>123 Luxury Avenue<br>Beverly Hills, CA 90210</p>
+                            <p>Govindpura Road, Bhaliya Vaga,<br>Jarod, Gujarat 391510</p>
                         </div>
                     </div>
 
@@ -72,7 +72,7 @@
                         </div>
                         <div class="contact-details">
                             <h4>Email Us</h4>
-                            <p>info@luxuryvillas.com<br>sales@luxuryvillas.com</p>
+                            <p>gurukrupamarketing@gmail.com</p>
                         </div>
                     </div>
 

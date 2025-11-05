@@ -25,6 +25,16 @@ Route::post('/contact', [ContactController::class, 'store'])->name('contact.stor
 Route::post('/brochure-download', [PageController::class, 'brochureDownload'])->name('brochure.download');
 Route::post('/property-contact', [PageController::class, 'propertyContact'])->name('property.contact');
 
+Route::get('/clear', function () {
+    Artisan::call('cache:clear');
+    Artisan::call('config:clear');
+    Artisan::call('config:cache');
+    Artisan::call('route:clear');
+    Artisan::call('view:clear');
+    Artisan::call('optimize:clear');
+
+    return response()->json(['status' => 'Caches cleared successfully']);
+});
 /*
 |--------------------------------------------------------------------------
 | Admin Routes
