@@ -72,7 +72,7 @@
                         </div>
                         <div class="contact-details">
                             <h4>Email Us</h4>
-                            <p>gurukrupamarketing@gmail.com</p>
+                            <p>tannurajrathava@gmail.com</p>
                         </div>
                     </div>
 
