@@ -107,6 +107,59 @@
         </div>
     </footer>
 
+    <!-- WhatsApp Floating Button -->
+    <a href="https://wa.me/919510312047" class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <style>
+        .whatsapp-float {
+            position: fixed;
+            width: 60px;
+            height: 60px;
+            bottom: 90px;
+            right: 20px;
+            background-color: #25d366;
+            color: #FFF;
+            border-radius: 50px;
+            text-align: center;
+            font-size: 30px;
+            box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .whatsapp-float:hover {
+            background-color: #20ba5a;
+            transform: scale(1.1);
+            box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .whatsapp-float i {
+            margin: 0;
+            line-height: 60px;
+        }
+
+        /* Responsive adjustments */
+        @media screen and (max-width: 768px) {
+            .whatsapp-float {
+                width: 50px;
+                height: 50px;
+                bottom: 75px;
+                right: 15px;
+                font-size: 25px;
+            }
+            
+            .whatsapp-float i {
+                line-height: 50px;
+            }
+        }
+    </style>
+
     <script src="{{ asset('assets/js/script.js') }}"></script>
     @yield('extra_js')
 </body>
